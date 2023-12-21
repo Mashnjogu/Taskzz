@@ -7,6 +7,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults.buttonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,26 +19,22 @@ import com.example.taskzz.ui.theme.TaskzzTheme
 import com.example.taskzz.ui.theme.buttonShape
 
 @Composable
-fun PrimaryButton(
+fun SecondaryButton(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    backgroundColor: Color = MaterialTheme.colorScheme.primary,
-//    textColor: Color = MaterialTheme.colorScheme.onPrimary
+    textColor: Color = MaterialTheme.colorScheme.primary
 ){
-    val buttonColors = buttonColors(
-        containerColor = backgroundColor
-    )
-    Button(
+
+    TextButton(
         onClick = onClick,
-        colors = buttonColors,
         shape = buttonShape,
         modifier = modifier.height(dimensionResource(id = R.dimen.button_height))
             .fillMaxWidth()
     ){
         Text(
             text.toUpperCase(androidx.compose.ui.text.intl.Locale.current),
-//            color = textColor
+            color = textColor
         )
     }
 }
@@ -51,9 +48,9 @@ fun PrimaryButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
-private fun PrimaryButtonPreview(){
+private fun SecondaryButtonPreview(){
     TaskzzTheme {
-        PrimaryButton(
+        SecondaryButton(
             "Click me",
             onClick = {}
         )
