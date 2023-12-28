@@ -1,15 +1,13 @@
-package com.example.taskzz.ui.login
+package com.example.taskzz.login.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -21,7 +19,6 @@ import com.example.taskzz.ui.components.PrimaryButton
 import com.example.taskzz.ui.components.SecondaryButton
 import com.example.taskzz.ui.components.TaskzTextField
 import com.example.taskzz.ui.theme.TaskzzTheme
-import java.nio.file.WatchEvent
 
 @Composable
 fun LoginContent(
@@ -42,7 +39,7 @@ fun LoginContent(
         ){
             Spacer(modifier = Modifier.weight(1F))
 
-            UserNameInput(text = loginViewState.userName, onTextChanged = onUserNameChanged)
+            UserNameInput(text = loginViewState.email, onTextChanged = onUserNameChanged)
 
             VerticalSpacer(height = 12.dp)
 
@@ -96,7 +93,7 @@ private fun UserNameInput(
     TaskzTextField(
         text = text,
         onTextChanged = onTextChanged,
-        labelText = "Username"
+        labelText = "Email"
     )
 }
 
@@ -110,7 +107,7 @@ private fun UserNameInput(
 )
 @Composable
 private fun EmptyLoginContentPreview(){
-    val viewState = LoginViewState(userName = "", password = "")
+    val viewState = LoginViewState(email = "", password = "")
     TaskzzTheme {
         LoginContent(
             loginViewState = viewState,
