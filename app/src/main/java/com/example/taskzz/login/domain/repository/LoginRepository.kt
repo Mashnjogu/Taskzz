@@ -9,5 +9,5 @@ interface LoginRepository {
         credentials: Credentials
     ): Result<LoginResponse>
 
-
+    suspend fun storeAuthToken(authToken: String)
 }
