@@ -10,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.taskzz.login.ui.LoginContent
+import com.example.taskzz.login.ui.LoginViewState
 import com.example.taskzz.ui.theme.TaskzzTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,7 +24,13 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    LoginContent(
+                        loginViewState = LoginViewState.Initial,
+                        onUserNameChanged = {},
+                        onPasswordChanged = {},
+                        onLoginClicked = { /*TODO*/ }) {
+                        
+                    }
                 }
             }
         }

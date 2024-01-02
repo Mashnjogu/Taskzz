@@ -23,14 +23,16 @@ fun SecondaryButton(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    textColor: Color = MaterialTheme.colorScheme.primary
+    textColor: Color = MaterialTheme.colorScheme.primary,
+    enabled: Boolean = true
 ){
 
     TextButton(
         onClick = onClick,
         shape = buttonShape,
         modifier = modifier.height(dimensionResource(id = R.dimen.button_height))
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        enabled = enabled
     ){
         Text(
             text.toUpperCase(androidx.compose.ui.text.intl.Locale.current),
@@ -48,11 +50,31 @@ fun SecondaryButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
-private fun SecondaryButtonPreview(){
+private fun SecondaryButtonEnabledPreview(){
     TaskzzTheme {
         SecondaryButton(
             "Click me",
-            onClick = {}
+            onClick = {},
+            enabled = true
+        )
+    }
+}
+
+@Preview(
+    name = "Night Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Light Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Composable
+private fun SecondaryButtonDisabledPreview(){
+    TaskzzTheme {
+        SecondaryButton(
+            "Click me",
+            onClick = {},
+            enabled = false
         )
     }
 }

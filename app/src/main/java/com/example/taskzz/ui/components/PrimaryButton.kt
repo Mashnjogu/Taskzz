@@ -23,7 +23,8 @@ fun PrimaryButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
-//    textColor: Color = MaterialTheme.colorScheme.onPrimary
+//    textColor: Color = MaterialTheme.colorScheme.onPrimary,
+    enabled: Boolean = true
 ){
     val buttonColors = buttonColors(
         containerColor = backgroundColor
@@ -33,11 +34,32 @@ fun PrimaryButton(
         colors = buttonColors,
         shape = buttonShape,
         modifier = modifier.height(dimensionResource(id = R.dimen.button_height))
-            .fillMaxWidth()
+            .fillMaxWidth(),
+        enabled = enabled
     ){
         Text(
             text.toUpperCase(androidx.compose.ui.text.intl.Locale.current),
 //            color = textColor
+        )
+    }
+}
+
+
+@Preview(
+    name = "Night Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Light Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Composable
+private fun PrimaryButtonEnabledPreview(){
+    TaskzzTheme {
+        PrimaryButton(
+            "Click me",
+            onClick = {},
+            enabled = true
         )
     }
 }
@@ -51,11 +73,12 @@ fun PrimaryButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
-private fun PrimaryButtonPreview(){
+private fun PrimaryButtonDisabledPreview(){
     TaskzzTheme {
         PrimaryButton(
             "Click me",
-            onClick = {}
+            onClick = {},
+            enabled = false
         )
     }
 }
