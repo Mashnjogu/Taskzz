@@ -51,6 +51,4 @@ sealed class LoginViewState(
         credentials = credentials
     )
 
-
-
 }
