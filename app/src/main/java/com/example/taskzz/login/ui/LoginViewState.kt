@@ -1,6 +1,7 @@
 package com.example.taskzz.login.ui
 
 import com.example.taskzz.login.domain.model.Credentials
+import com.example.taskzz.ui.components.UiText
 
 
 sealed class LoginViewState(
@@ -39,7 +40,7 @@ sealed class LoginViewState(
      */
     data class SubmissionError(
         override val credentials: Credentials,
-        val errorMessage: String
+        val errorMessage: UiText
     ): LoginViewState(
         credentials = credentials
     )

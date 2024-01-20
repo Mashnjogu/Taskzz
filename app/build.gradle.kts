@@ -33,8 +33,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
+
+//        jvmTarget = "17"
+
+        freeCompilerArgs += listOf(
+            "-Xopt-in=kotlin.time.ExperimentalTime",
+            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xcontext-receivers",
+        )
     }
     buildFeatures {
         compose = true
@@ -64,6 +73,7 @@ dependencies {
     testImplementation ("io.mockk:mockk:1.12.0")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
     testImplementation ("com.google.truth:truth:1.1.3")
+    testImplementation ("app.cash.turbine:turbine:1.0.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

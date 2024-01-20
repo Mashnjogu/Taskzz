@@ -1,5 +1,6 @@
 package com.example.taskzz.login.ui
 
+import app.cash.turbine.test
 import com.example.taskzz.fakes.FakeCredentialsLoginUseCase
 import com.example.taskzz.login.domain.model.Credentials
 import com.example.taskzz.login.domain.model.LoginResult
@@ -24,7 +25,10 @@ class LoginViewModelRobot {
         credentials: Credentials,
         result: LoginResult
     ) = apply{
-      fakeCredentialsLoginUseCase.mockLoginResultsForCredentials(credentials, result)
+      fakeCredentialsLoginUseCase.mockLoginResultsForCredentials(
+          credentials = credentials,
+          result = result
+      )
     }
 
     fun enterEmail(email: String) = apply{
@@ -36,7 +40,7 @@ class LoginViewModelRobot {
     }
 
     fun clickLoginButton() = apply {
-        viewModel.signInButtonClicked()
+        viewModel.logInButtonClicked()
     }
 
     fun clickSignUpButton() = apply {
@@ -46,4 +50,18 @@ class LoginViewModelRobot {
     fun assertViewState(expectedViewState: LoginViewState)= apply {
         assertThat(viewModel.viewState).isEqualTo(expectedViewState)
     }
+
+    suspend fun assertViewStatesAfterAction(
+        action: LoginViewModelRobot.() -> Unit,
+        states: List<LoginViewState>
+    ) = apply {
+        viewModel.viewState.test {
+            action()
+            for (state in states) {
+                assertThat(awaitItem()).isEqualTo(state)
+            }
+        }
+    }
+//1:08:39
+
 }

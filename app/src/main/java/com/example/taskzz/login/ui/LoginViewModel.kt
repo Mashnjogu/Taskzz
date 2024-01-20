@@ -35,7 +35,7 @@ class LoginViewModel(
         )
     }
 
-    fun signInButtonClicked(){
+    fun logInButtonClicked(){
         TODO()
     }
 

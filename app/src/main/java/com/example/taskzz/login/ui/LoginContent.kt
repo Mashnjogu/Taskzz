@@ -1,5 +1,6 @@
 package com.example.taskzz.login.ui
 
+import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +33,8 @@ import com.example.taskzz.login.domain.model.Password
 import com.example.taskzz.ui.components.PrimaryButton
 import com.example.taskzz.ui.components.SecondaryButton
 import com.example.taskzz.ui.components.TaskzTextField
+import com.example.taskzz.ui.components.UiText
+import com.example.taskzz.ui.components.getString
 import com.example.taskzz.ui.theme.TaskzzTheme
 
 @Composable
@@ -102,11 +106,14 @@ private fun LogoInputsColumn(
         )
 
         if (loginViewState is LoginViewState.SubmissionError) {
+            val context: Context = LocalContext.current
             Text(
-                text = loginViewState.errorMessage,
+                text = loginViewState.errorMessage.getString(context),
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.padding(top = 12.dp)
             )
+
+
         }
         VerticalSpacer(height = 48.dp)
 
@@ -215,7 +222,7 @@ class LoginViewStateProvider: PreviewParameterProvider<LoginViewState>{
                 LoginViewState.Submitting(activeCredentials),
                 LoginViewState.SubmissionError(
                     activeCredentials,
-                    "Something went wrong"
+                    UiText.ResourceText(R.string.error_message)
                 ),
                 LoginViewState.InputError(
                     credentials = activeCredentials,
