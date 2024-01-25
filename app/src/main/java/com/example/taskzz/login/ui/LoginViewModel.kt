@@ -1,12 +1,18 @@
 package com.example.taskzz.login.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.taskzz.R
 import com.example.taskzz.login.domain.model.Credentials
 import com.example.taskzz.login.domain.model.Email
+import com.example.taskzz.login.domain.model.LoginResult
 import com.example.taskzz.login.domain.model.Password
 import com.example.taskzz.login.domain.usecase.CredentialsLoginUseCase
+import com.example.taskzz.ui.components.UiText
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val credentialsLoginUseCase: CredentialsLoginUseCase
@@ -36,7 +42,29 @@ class LoginViewModel(
     }
 
     fun logInButtonClicked(){
-        TODO()
+        val currentCredentials = _viewState.value.credentials
+
+        _viewState.value = LoginViewState.Submitting(credentials = currentCredentials)
+
+        viewModelScope.launch{
+            val loginResult = credentialsLoginUseCase.invoke(currentCredentials)
+
+            _viewState.value = when(loginResult){
+                is LoginResult.Failure.InvalidCredentials -> {
+                    LoginViewState.SubmissionError(
+                        credentials = currentCredentials,
+                        errorMessage = UiText.ResourceText(R.string.err_invalid_credentials)
+                    )
+                }
+                is LoginResult.Failure.Unknown -> {
+                    LoginViewState.SubmissionError(
+                        credentials = currentCredentials,
+                        errorMessage = UiText.ResourceText(R.string.error_login_failure)
+                    )
+                }
+                else -> _viewState.value
+            }
+        }
     }
 
     fun signUpButtonClicked(){

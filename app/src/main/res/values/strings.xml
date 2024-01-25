@@ -2,4 +2,6 @@
     <string name="app_name">Taskzz</string>
     <string name="err_invalid_credentials">Your email or password are incorrect</string>
     <string name="error_message">"Something went wrong"</string>
+    <string name="error_login_failure">There was an error login in. Please check your
+        connection and try again</string>
 </resources>

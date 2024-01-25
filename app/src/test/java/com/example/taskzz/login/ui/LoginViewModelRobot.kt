@@ -60,6 +60,7 @@ class LoginViewModelRobot {
             for (state in states) {
                 assertThat(awaitItem()).isEqualTo(state)
             }
+            cancel()
         }
     }
 //1:08:39

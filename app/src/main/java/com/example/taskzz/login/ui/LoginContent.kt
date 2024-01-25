@@ -40,7 +40,7 @@ import com.example.taskzz.ui.theme.TaskzzTheme
 @Composable
 fun LoginContent(
     loginViewState: LoginViewState,
-    onUserNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit
@@ -53,16 +53,19 @@ fun LoginContent(
             LogoInputsColumn(
                 it,
                 loginViewState,
-                onUserNameChanged,
+                onEmailChanged,
                 onPasswordChanged,
                 onLoginClicked,
                 onSignUpClicked
             )
 
-            CircularProgressIndicator(
-                modifier = Modifier.wrapContentSize()
-                    .align(Alignment.Center)
-            )
+            if(loginViewState is LoginViewState.Submitting){
+                CircularProgressIndicator(
+                    modifier = Modifier.wrapContentSize()
+                        .align(Alignment.Center)
+                )
+            }
+
         }
     }
 
@@ -72,7 +75,7 @@ fun LoginContent(
 private fun LogoInputsColumn(
     it: PaddingValues,
     loginViewState: LoginViewState,
-    onUserNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit
@@ -90,7 +93,7 @@ private fun LogoInputsColumn(
 
         EmailInput(
             text = loginViewState.credentials.email.value,
-            onTextChanged = onUserNameChanged,
+            onTextChanged = onEmailChanged,
             /*
                 if error is of type InputError, we can get the emailInputErrorMessage
                  */
