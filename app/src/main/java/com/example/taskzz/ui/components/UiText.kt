@@ -2,6 +2,8 @@ package com.example.taskzz.ui.components
 
 import android.content.Context
 import androidx.annotation.StringRes
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 
 /*
 different ways to display text in the app
@@ -18,4 +20,12 @@ fun UiText.getString(context: Context): String{
         is UiText.StringText -> this.value
         is UiText.ResourceText -> context.getString(this.value)
     }
+}
+
+/*
+Helper function to get the string from the UiText or composable
+ */
+@Composable
+fun UiText.getString(): String{
+    return this.getString(LocalContext.current)
 }

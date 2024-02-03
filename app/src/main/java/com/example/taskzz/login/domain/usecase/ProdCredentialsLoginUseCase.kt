@@ -16,6 +16,13 @@ class ProdCredentialsLoginUseCase(
     private val tokenRepository: TokenRepository
 ): CredentialsLoginUseCase {
     override suspend fun invoke(credentials: Credentials): LoginResult {
+
+        val validationResult = validateCredentials(credentials)
+
+        if (validationResult != null){
+            return validationResult
+        }
+
         val repoResult = loginRepository.login(credentials)
 
         return when(repoResult){
@@ -27,6 +34,20 @@ class ProdCredentialsLoginUseCase(
             is Result.Error -> {
                 loginResultForFailure(repoResult)
             }
+        }
+    }
+
+    private fun validateCredentials(credentials: Credentials): LoginResult?{
+        val emptyEmail = credentials.email.value.isEmpty()
+        val emptyPassword = credentials.password.value.isEmpty()
+
+        return if (emptyEmail || emptyPassword) {
+            return LoginResult.Failure.EmptyCredentials(
+                emptyEmail = emptyEmail,
+                emptyPassword = emptyPassword
+            )
+        }else{
+            null
         }
     }
 

@@ -20,7 +20,9 @@ sealed class LoginViewState(
     state of the screen as the user is entering email information
      */
     data class Active(
-        override val credentials: Credentials
+        override val credentials: Credentials,
+        val emailInputErrorMessage: UiText? = null,
+        val passwordInputErrorMessage: UiText? = null
     ): LoginViewState(
         credentials = credentials
     )

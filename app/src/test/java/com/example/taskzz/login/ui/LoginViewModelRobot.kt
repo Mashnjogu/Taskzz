@@ -51,7 +51,7 @@ class LoginViewModelRobot {
         assertThat(viewModel.viewState).isEqualTo(expectedViewState)
     }
 
-    suspend fun assertViewStatesAfterAction(
+    suspend fun expectViewStates(
         action: LoginViewModelRobot.() -> Unit,
         states: List<LoginViewState>
     ) = apply {

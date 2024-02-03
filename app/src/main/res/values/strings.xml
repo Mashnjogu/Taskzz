@@ -4,4 +4,6 @@
     <string name="error_message">"Something went wrong"</string>
     <string name="error_login_failure">There was an error login in. Please check your
         connection and try again</string>
+    <string name="err_empty_password">Please enter your password</string>
+    <string name="err_empty_email">Please enter your email</string>
 </resources>

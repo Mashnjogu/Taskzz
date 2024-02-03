@@ -97,7 +97,9 @@ private fun LogoInputsColumn(
             /*
                 if error is of type InputError, we can get the emailInputErrorMessage
                  */
-            errorMessage = (loginViewState as? LoginViewState.InputError)?.emailInputErrorMessage
+           errorMessage = (loginViewState as? LoginViewState.Active)
+               ?.emailInputErrorMessage
+               ?.getString()
         )
 
         VerticalSpacer(height = 12.dp)
@@ -105,13 +107,15 @@ private fun LogoInputsColumn(
         PasswordInput(
             text = loginViewState.credentials.password.value,
             onTextChanged = onPasswordChanged,
-            errorMessage = (loginViewState as? LoginViewState.InputError)?.passwordInputErrorMessage
+            errorMessage = (loginViewState as? LoginViewState.Active)
+                ?.passwordInputErrorMessage
+                ?.getString()
         )
 
         if (loginViewState is LoginViewState.SubmissionError) {
-            val context: Context = LocalContext.current
+
             Text(
-                text = loginViewState.errorMessage.getString(context),
+                text = loginViewState.errorMessage.getString(),
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.padding(top = 12.dp)
             )
@@ -227,10 +231,10 @@ class LoginViewStateProvider: PreviewParameterProvider<LoginViewState>{
                     activeCredentials,
                     UiText.ResourceText(R.string.error_message)
                 ),
-                LoginViewState.InputError(
+                LoginViewState.Active(
                     credentials = activeCredentials,
-                    emailInputErrorMessage = "Please enter an email",
-                    passwordInputErrorMessage = "Please enter a password",
+                    emailInputErrorMessage = UiText.StringText("Please enter an email"),
+                    passwordInputErrorMessage = UiText.StringText("Please enter a password"),
                 )
             )
         }
