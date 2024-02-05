@@ -9,11 +9,14 @@ import com.example.taskzz.login.domain.model.LoginResult
 import com.example.taskzz.login.domain.model.Password
 import com.example.taskzz.login.domain.usecase.CredentialsLoginUseCase
 import com.example.taskzz.ui.components.UiText
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val credentialsLoginUseCase: CredentialsLoginUseCase
 ): ViewModel() {
 

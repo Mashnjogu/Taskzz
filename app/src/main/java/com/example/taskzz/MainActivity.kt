@@ -12,20 +12,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.taskzz.login.domain.usecase.DemoCredentialsLoginUsecase
-import com.example.taskzz.login.ui.LoginContent
+import com.example.taskzz.login.domain.usecase.DemoCredentialsLoginUseCase
 import com.example.taskzz.login.ui.LoginScreen
 import com.example.taskzz.login.ui.LoginViewModel
-import com.example.taskzz.login.ui.LoginViewState
 import com.example.taskzz.ui.theme.TaskzzTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
 
     private val LoginViewModelFactory = object: ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            val useCase = DemoCredentialsLoginUsecase()
+            val useCase = DemoCredentialsLoginUseCase()
 
             return LoginViewModel(useCase) as T
         }

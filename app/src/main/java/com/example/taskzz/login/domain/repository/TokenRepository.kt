@@ -6,5 +6,5 @@ interface TokenRepository {
 
     fun storeToken(authToken: Token)
 
-    fun fetchToken(): Token
+    fun fetchToken(): Token?
 }

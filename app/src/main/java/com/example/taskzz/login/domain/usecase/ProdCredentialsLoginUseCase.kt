@@ -6,12 +6,13 @@ import com.example.taskzz.login.domain.model.InvalidCredentialsException
 import com.example.taskzz.login.domain.model.LoginResult
 import com.example.taskzz.login.domain.repository.TokenRepository
 import com.example.taskzz.login.domain.repository.LoginRepository
+import javax.inject.Inject
 
 /*
 Concrete implementation of [CredentialsLoginUsecase] that will request login in via
 login repository
  */
-class ProdCredentialsLoginUseCase(
+class ProdCredentialsLoginUseCase @Inject constructor(
     private val loginRepository: LoginRepository,
     private val tokenRepository: TokenRepository
 ): CredentialsLoginUseCase {

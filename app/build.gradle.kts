@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id ("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+//    id 'kotlin-parcelize'
 }
 
 android {
@@ -70,6 +73,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation("junit:junit:4.12")
     testImplementation(libs.junit)
+    //testing
     testImplementation("junit:junit:4.13.2")
     testImplementation ("io.mockk:mockk:1.12.0")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
@@ -78,11 +82,21 @@ dependencies {
 //    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.6.4")
     testImplementation ("com.google.truth:truth:1.1.3")
     testImplementation ("app.cash.turbine:turbine:1.0.0")
+    //hilt
+    implementation ("com.google.dagger:hilt-android:2.45")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+//    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+//    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
 
+kapt {
+    correctErrorTypes = true
 }
