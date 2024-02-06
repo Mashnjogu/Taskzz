@@ -6,11 +6,12 @@ import com.example.taskzz.login.domain.model.Credentials
 import com.example.taskzz.login.domain.model.LoginResponse
 import com.example.taskzz.login.domain.model.RefreshToken
 import com.example.taskzz.login.domain.model.Token
+import javax.inject.Inject
 
 /*
 Fake implementation of LoginRepository
  */
-class DemoLoginRepository: LoginRepository {
+class DemoLoginRepository @Inject constructor(): LoginRepository {
     override suspend fun login(credentials: Credentials): Result<LoginResponse> {
         val defaultToken = Token(
             AuthToken(""),

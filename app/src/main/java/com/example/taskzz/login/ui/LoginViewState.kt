@@ -6,7 +6,7 @@ import com.example.taskzz.ui.components.UiText
 
 sealed class LoginViewState(
     open val credentials: Credentials,
-    open val buttonEnabled: Boolean = true
+    open val inputsEnabled: Boolean = true
 ){
 
     /*
@@ -34,7 +34,7 @@ sealed class LoginViewState(
         override val credentials: Credentials
     ): LoginViewState(
         credentials = credentials,
-        buttonEnabled = false
+        inputsEnabled = false
     )
 
     /*
@@ -52,6 +52,11 @@ sealed class LoginViewState(
         val passwordInputErrorMessage: String?
     ): LoginViewState(
         credentials = credentials
+    )
+
+    object Completed: LoginViewState(
+        credentials = Credentials(),
+        inputsEnabled = false
     )
 
 }

@@ -1,16 +1,21 @@
 package com.example.taskzz.login.ui
 
-import android.content.Context
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -18,8 +23,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -61,7 +69,8 @@ fun LoginContent(
 
             if(loginViewState is LoginViewState.Submitting){
                 CircularProgressIndicator(
-                    modifier = Modifier.wrapContentSize()
+                    modifier = Modifier
+                        .wrapContentSize()
                         .align(Alignment.Center)
                 )
             }
@@ -78,18 +87,26 @@ private fun LogoInputsColumn(
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
-    onSignUpClicked: () -> Unit
+    onSignUpClicked: () -> Unit,
+    contentPadding: PaddingValues = PaddingValues(dimensionResource(id = R.dimen.screen_padding))
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(it)
-            .padding(dimensionResource(id = R.dimen.screen_padding))
+            .padding(
+                start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
+                end = contentPadding.calculateStartPadding(LocalLayoutDirection.current)
+            )
+            .verticalScroll(rememberScrollState())
     ) {
-        Spacer(modifier = Modifier.weight(1F))
 
+        VerticalSpacer(height = contentPadding.calculateTopPadding())
         Text(text = "app icon")
-        Spacer(modifier = Modifier.height(12.dp))
+        AppLogo()
+        Spacer(
+            modifier = Modifier.height(12.dp)
+        )
 
         EmailInput(
             text = loginViewState.credentials.email.value,
@@ -99,7 +116,8 @@ private fun LogoInputsColumn(
                  */
            errorMessage = (loginViewState as? LoginViewState.Active)
                ?.emailInputErrorMessage
-               ?.getString()
+               ?.getString(),
+            enabled = loginViewState.inputsEnabled
         )
 
         VerticalSpacer(height = 12.dp)
@@ -109,7 +127,9 @@ private fun LogoInputsColumn(
             onTextChanged = onPasswordChanged,
             errorMessage = (loginViewState as? LoginViewState.Active)
                 ?.passwordInputErrorMessage
-                ?.getString()
+                ?.getString(),
+            enabled = loginViewState.inputsEnabled,
+
         )
 
         if (loginViewState is LoginViewState.SubmissionError) {
@@ -126,15 +146,17 @@ private fun LogoInputsColumn(
 
         LoginButton(
             onClick = onLoginClicked,
-            enabled = loginViewState.buttonEnabled
+            enabled = loginViewState.inputsEnabled
         )
 
         VerticalSpacer(height = 12.dp)
 
         SignUpButton(
             onClick = onSignUpClicked,
-            enabled = loginViewState.buttonEnabled
+            enabled = loginViewState.inputsEnabled
         )
+
+        VerticalSpacer(height = contentPadding.calculateBottomPadding())
     }
 }
 
@@ -166,14 +188,19 @@ private fun LoginButton(
 private fun PasswordInput(
     text: String,
     onTextChanged: (String) -> Unit,
-    errorMessage: String?
+    errorMessage: String?,
+    enabled: Boolean,
 ) {
     TaskzTextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = "Password",
         errorMessage = errorMessage,
-        visualTransformation = PasswordVisualTransformation(mask = '*')
+        visualTransformation = PasswordVisualTransformation(mask = '*'),
+        enabled = enabled,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Password
+        )
     )
 }
 
@@ -181,14 +208,28 @@ private fun PasswordInput(
 private fun EmailInput(
     text: String,
     onTextChanged: (String) -> Unit,
-    errorMessage: String?
+    errorMessage: String?,
+    enabled: Boolean
 ) {
     TaskzTextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = "Email",
-        errorMessage = errorMessage
+        errorMessage = errorMessage,
+        enabled = enabled
     )
+}
+
+@Composable
+private fun AppLogo(
+    modifier: Modifier = Modifier
+) {
+//    Image(
+//        painterResource(id = R.drawable.ic_toa_checkmark),
+//        contentDescription = stringResource(R.string.app_logo_content_description),
+//        modifier = modifier
+//            .fillMaxWidth(APP_LOGO_WIDTH_PERCENTAGE),
+//    )
 }
 
 @Preview(

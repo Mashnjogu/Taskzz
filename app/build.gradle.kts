@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    id ("kotlin-kapt")
+//    id ("kotlin-kapt")
+    kotlin("kapt")
     id("com.google.dagger.hilt.android")
 //    id 'kotlin-parcelize'
 }
@@ -33,18 +34,25 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+//        sourceCompatibility = JavaVersion.VERSION_1_8
+//        targetCompatibility = JavaVersion.VERSION_1_8
+
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+
+
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+//        jvmTarget = "1.8"
+        jvmTarget = "17"
 
 //        jvmTarget = "17"
 
         freeCompilerArgs += listOf(
             "-Xopt-in=kotlin.time.ExperimentalTime",
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+//            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
             "-Xcontext-receivers",
         )
     }
@@ -83,8 +91,8 @@ dependencies {
     testImplementation ("com.google.truth:truth:1.1.3")
     testImplementation ("app.cash.turbine:turbine:1.0.0")
     //hilt
-    implementation ("com.google.dagger:hilt-android:2.45")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation ("com.google.dagger:hilt-android:2.47")
+    kapt("com.google.dagger:hilt-android-compiler:2.47")
 //    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
 //    kapt "androidx.hilt:hilt-compiler:1.0.0"
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
