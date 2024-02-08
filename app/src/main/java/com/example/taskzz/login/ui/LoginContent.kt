@@ -38,11 +38,11 @@ import com.example.taskzz.core.VerticalSpacer
 import com.example.taskzz.login.domain.model.Credentials
 import com.example.taskzz.login.domain.model.Email
 import com.example.taskzz.login.domain.model.Password
-import com.example.taskzz.ui.components.PrimaryButton
-import com.example.taskzz.ui.components.SecondaryButton
-import com.example.taskzz.ui.components.TaskzTextField
-import com.example.taskzz.ui.components.UiText
-import com.example.taskzz.ui.components.getString
+import com.example.taskzz.core.ui.components.PrimaryButton
+import com.example.taskzz.core.ui.components.SecondaryButton
+import com.example.taskzz.core.ui.components.TaskzTextField
+import com.example.taskzz.core.ui.components.UiText
+import com.example.taskzz.core.ui.components.getString
 import com.example.taskzz.ui.theme.TaskzzTheme
 
 @Composable
@@ -88,21 +88,21 @@ private fun LogoInputsColumn(
     onPasswordChanged: (String) -> Unit,
     onLoginClicked: () -> Unit,
     onSignUpClicked: () -> Unit,
-    contentPadding: PaddingValues = PaddingValues(dimensionResource(id = R.dimen.screen_padding))
+    contentPadding: PaddingValues = PaddingValues(
+        dimensionResource(id = R.dimen.screen_padding)
+    ),
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(it)
-            .padding(
-                start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
-                end = contentPadding.calculateStartPadding(LocalLayoutDirection.current)
-            )
+            .padding(24.dp)
             .verticalScroll(rememberScrollState())
     ) {
-
+        Spacer(modifier = Modifier.weight(1f))
         VerticalSpacer(height = contentPadding.calculateTopPadding())
-        Text(text = "app icon")
+//        VerticalSpacer(height = contentPadding.calculateTopPadding())
+        Text(text = "app icon and rework on toa 11")
         AppLogo()
         Spacer(
             modifier = Modifier.height(12.dp)
@@ -157,6 +157,9 @@ private fun LogoInputsColumn(
         )
 
         VerticalSpacer(height = contentPadding.calculateBottomPadding())
+
+
+//        VerticalSpacer(height = contentPadding.calculateBottomPadding())
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.taskzz.ui.components
+package com.example.taskzz.core.ui.components
 
 import android.content.Context
 import androidx.annotation.StringRes

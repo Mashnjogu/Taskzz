@@ -6,4 +6,7 @@
         connection and try again</string>
     <string name="err_empty_password">Please enter your password</string>
     <string name="err_empty_email">Please enter your email</string>
+    <string name="reschedule">RESCHEDULE</string>
+    <string name="done">DONE</string>
+    <string name="add_task">Add Task</string>
 </resources>

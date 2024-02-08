@@ -1,7 +1,7 @@
 package com.example.taskzz.login.ui
 
 import com.example.taskzz.login.domain.model.Credentials
-import com.example.taskzz.ui.components.UiText
+import com.example.taskzz.core.ui.components.UiText
 
 
 sealed class LoginViewState(

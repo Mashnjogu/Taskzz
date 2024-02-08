@@ -1,4 +1,4 @@
-package com.example.taskzz.ui.components
+package com.example.taskzz.core.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column

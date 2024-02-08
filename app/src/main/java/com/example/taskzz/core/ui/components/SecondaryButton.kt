@@ -1,4 +1,4 @@
-package com.example.taskzz.ui.components
+package com.example.taskzz.core.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,6 +7,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults.buttonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,20 +19,16 @@ import com.example.taskzz.ui.theme.TaskzzTheme
 import com.example.taskzz.ui.theme.buttonShape
 
 @Composable
-fun PrimaryButton(
+fun SecondaryButton(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    backgroundColor: Color = MaterialTheme.colorScheme.primary,
-//    textColor: Color = MaterialTheme.colorScheme.onPrimary,
+    textColor: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true
 ){
-    val buttonColors = buttonColors(
-        containerColor = backgroundColor
-    )
-    Button(
+
+    TextButton(
         onClick = onClick,
-        colors = buttonColors,
         shape = buttonShape,
         modifier = modifier.height(dimensionResource(id = R.dimen.button_height))
             .fillMaxWidth(),
@@ -39,11 +36,10 @@ fun PrimaryButton(
     ){
         Text(
             text.toUpperCase(androidx.compose.ui.text.intl.Locale.current),
-//            color = textColor
+            color = textColor
         )
     }
 }
-
 
 @Preview(
     name = "Night Mode",
@@ -54,9 +50,9 @@ fun PrimaryButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
-private fun PrimaryButtonEnabledPreview(){
+private fun SecondaryButtonEnabledPreview(){
     TaskzzTheme {
-        PrimaryButton(
+        SecondaryButton(
             "Click me",
             onClick = {},
             enabled = true
@@ -73,9 +69,9 @@ private fun PrimaryButtonEnabledPreview(){
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
-private fun PrimaryButtonDisabledPreview(){
+private fun SecondaryButtonDisabledPreview(){
     TaskzzTheme {
-        PrimaryButton(
+        SecondaryButton(
             "Click me",
             onClick = {},
             enabled = false

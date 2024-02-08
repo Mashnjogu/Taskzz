@@ -8,7 +8,7 @@ import com.example.taskzz.login.domain.model.Email
 import com.example.taskzz.login.domain.model.LoginResult
 import com.example.taskzz.login.domain.model.Password
 import com.example.taskzz.login.domain.usecase.CredentialsLoginUseCase
-import com.example.taskzz.ui.components.UiText
+import com.example.taskzz.core.ui.components.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow

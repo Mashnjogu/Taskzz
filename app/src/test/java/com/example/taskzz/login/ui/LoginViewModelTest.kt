@@ -8,7 +8,7 @@ import com.example.taskzz.login.domain.model.Email
 import com.example.taskzz.login.domain.model.LoginResult
 import com.example.taskzz.login.domain.model.Password
 import com.example.taskzz.login.domain.usecase.ProdCredentialsLoginUseCase
-import com.example.taskzz.ui.components.UiText
+import com.example.taskzz.core.ui.components.UiText
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
