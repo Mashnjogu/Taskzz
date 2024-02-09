@@ -97,6 +97,9 @@ dependencies {
 //    kapt "androidx.hilt:hilt-compiler:1.0.0"
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
 
+    //accompanist
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.35.0-alpha")
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

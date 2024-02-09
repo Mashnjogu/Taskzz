@@ -3,14 +3,19 @@ package com.example.taskzz.home.tasklist.ui
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,6 +35,7 @@ import androidx.compose.ui.unit.dp
 
 import com.example.taskzz.home.tasklist.domain.model.Task
 import com.example.taskzz.R
+import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
 import com.example.taskzz.ui.theme.TaskzzTheme
 
 
@@ -40,13 +46,32 @@ fun TaskListContent(
     onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit
 ){
-    if (viewState is TaskListViewState.Loaded){
-        LoadedTasksContent(
-            viewState,
-            onAddButtonClicked,
-            onRescheduleClicked,
-            onDoneClicked
-        )
+    Box(modifier = Modifier.fillMaxSize()){
+
+        when(viewState){
+            is TaskListViewState.Loading -> {
+                MaterialCircularProgressIndicator(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .align(Alignment.Center)
+                )
+
+
+            }
+
+            is TaskListViewState.Error -> {
+
+            }
+            is TaskListViewState.Loaded -> {
+                LoadedTasksContent(
+                    viewState,
+                    onAddButtonClicked,
+                    onRescheduleClicked,
+                    onDoneClicked
+                )
+
+            }
+        }
     }
 }
 
@@ -111,6 +136,8 @@ private fun TaskListToolBar() {
                     modifier = Modifier.size(84.dp)
                 )
             }
+
+
 
         }
     }

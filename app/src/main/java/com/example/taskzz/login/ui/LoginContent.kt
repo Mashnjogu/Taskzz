@@ -35,6 +35,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.example.taskzz.R
 import com.example.taskzz.core.VerticalSpacer
+import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
 import com.example.taskzz.login.domain.model.Credentials
 import com.example.taskzz.login.domain.model.Email
 import com.example.taskzz.login.domain.model.Password
@@ -68,7 +69,8 @@ fun LoginContent(
             )
 
             if(loginViewState is LoginViewState.Submitting){
-                CircularProgressIndicator(
+
+                MaterialCircularProgressIndicator(
                     modifier = Modifier
                         .wrapContentSize()
                         .align(Alignment.Center)
