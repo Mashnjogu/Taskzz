@@ -4,12 +4,14 @@ package com.example.taskzz.home.tasklist.ui
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -46,11 +48,23 @@ fun TaskListContent(
     onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit
 ){
-    Box(modifier = Modifier.fillMaxSize()){
+
+
+//    Column(modifier = Modifier
+//        .fillMaxSize()
+//        .padding(16.dp)){
+//
+//
+//        Text(text = "The state is $viewState")
+//        Spacer(modifier = Modifier.height(8.dp))
+//    }
+
+ Box(modifier = Modifier.fillMaxSize()){
+
 
         when(viewState){
-            is TaskListViewState.Loading -> {
-                MaterialCircularProgressIndicator(
+           is TaskListViewState.Loading -> {
+               MaterialCircularProgressIndicator(
                     modifier = Modifier
                         .wrapContentSize()
                         .align(Alignment.Center)
@@ -61,21 +75,23 @@ fun TaskListContent(
 
             is TaskListViewState.Error -> {
 
-            }
+           }
             is TaskListViewState.Loaded -> {
-                LoadedTasksContent(
+               LoadedTasksContent(
                     viewState,
                     onAddButtonClicked,
                     onRescheduleClicked,
                     onDoneClicked
                 )
 
+
             }
         }
     }
+
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
 @Composable
 private fun LoadedTasksContent(
     viewState: TaskListViewState.Loaded,
@@ -94,11 +110,13 @@ private fun LoadedTasksContent(
 
         }
     ) { paddingValues ->
+
             TaskList(
                 tasks = viewState.tasks,
                 onRescheduledClicked = onRescheduleClicked,
                 onDoneClicked = onDoneClicked,
                 modifier = Modifier.padding(paddingValues)
+
             )
 
     }
@@ -112,7 +130,10 @@ private fun TaskListToolBar() {
     ){
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.height(toolBarHeight)
+            modifier = Modifier
+            .statusBarsPadding()
+                .height(toolBarHeight)
+
         ) {
             IconButton(onClick = { /*TODO*/ }) {
                 Icon(

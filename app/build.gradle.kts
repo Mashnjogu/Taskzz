@@ -1,10 +1,15 @@
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-//    id ("kotlin-kapt")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
-//    id 'kotlin-parcelize'
+    id ("kotlin-kapt")
+    id("com.google.devtools.ksp")
+
+//    id ("com.google.devtools.ksp") version("1.9.0-1.0.13")
+
+
 }
 
 android {
@@ -67,6 +72,25 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+//    applicationVariants.all {
+//        addJavaSourceFoldersToModel(
+//            File(buildDir, "generated/ksp/$name/kotlin")
+//        )
+//    }
+
+
+}
+
+kotlin{
+    sourceSets {
+        debug {
+            kotlin.srcDir("build/generated/ksp/debug/kotlin")
+        }
+        release {
+            kotlin.srcDir("build/generated/ksp/release/kotlin")
+        }
+    }
 }
 
 dependencies {
@@ -86,6 +110,8 @@ dependencies {
     testImplementation ("io.mockk:mockk:1.12.0")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.8.0-RC2")
+
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.35.0-alpha")
 //    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0-RC2")
 //    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.6.4")
     testImplementation ("com.google.truth:truth:1.1.3")
@@ -96,16 +122,21 @@ dependencies {
 //    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
 //    kapt "androidx.hilt:hilt-compiler:1.0.0"
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
-
-    //accompanist
-    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.35.0-alpha")
-
+    //animation
+    implementation ("androidx.compose.animation:animation:1.2.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    //compose destination
+    implementation("io.github.raamcosta.compose-destinations:animations-core:1.9.55")
+    ksp("io.github.raamcosta.compose-destinations:ksp:1.9.55")
+    ksp("androidx.room:room-compiler:2.6.1")
+    //compose navigation
+    implementation("androidx.navigation:navigation-compose:$2.7.7")
+
 }
 
 kapt {

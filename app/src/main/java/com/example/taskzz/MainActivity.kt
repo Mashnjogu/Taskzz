@@ -24,6 +24,8 @@ import com.example.taskzz.login.ui.LoginScreen
 import com.example.taskzz.login.ui.LoginViewModel
 import com.example.taskzz.ui.theme.TaskzzTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.ramcosta.composedestinations.DestinationsNavHost
+
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,14 +44,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+                    DestinationsNavHost(navGraph = NavGraphs.root)
 //                    LoginScreen(
 //                        onLoginCompleted = {
 //                            Log.d("Main Activity", "log has completed")
 //                        }
 //                    )
 
-                    TaskListScreen()
+//                    TaskListScreen()
                 }
+
             }
         }
     }

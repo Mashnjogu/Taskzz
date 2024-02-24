@@ -1,5 +1,7 @@
 package com.example.taskzz.core.di
 
+import com.example.taskzz.home.tasklist.domain.repository.DemoTaskListRepository
+import com.example.taskzz.home.tasklist.domain.repository.TaskListRepository
 import com.example.taskzz.login.domain.repository.DemoLoginRepository
 import com.example.taskzz.login.domain.repository.DemoTokenRepository
 import com.example.taskzz.login.domain.repository.LoginRepository
@@ -11,11 +13,14 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule{
+abstract class RepositoryModule {
 
     @Binds
     abstract fun bindTokenRepository(tokenRepository: DemoTokenRepository): TokenRepository
 
     @Binds
     abstract fun bindLoginRepository(loginRepository: DemoLoginRepository): LoginRepository
+
+    @Binds
+    abstract fun bindTaskListRepository(taskListRepository: DemoTaskListRepository): TaskListRepository
 }
