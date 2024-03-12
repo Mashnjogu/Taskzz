@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.home.tasklist.domain.usecase.GetAllTasksUseCase
+import com.example.taskzz.home.tasklist.domain.usecase.ProdGetAllTasksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,7 +21,6 @@ class TaskListViewModel @Inject constructor(
     private val _viewState: MutableStateFlow<TaskListViewState> = MutableStateFlow(TaskListViewState.Loading)
     val viewState: StateFlow<TaskListViewState> = _viewState
 
-    private var viewModelInitialized = false
 
     init {
 

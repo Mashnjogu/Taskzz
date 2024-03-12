@@ -34,11 +34,11 @@ fun LoginScreen(
         coroutineScope.launch {
             viewModel.loginCompletedChannel.receive()
             navigator.navigate(TaskListScreenDestination){
-                this.popUpTo(
-                    LoginScreenDestination.route,
-                ){
-                    this.inclusive = true
-                }
+//                this.popUpTo(
+//                    LoginScreenDestination.route,
+//                ){
+//                    this.inclusive = true
+//                }
             }
         }
     }

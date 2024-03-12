@@ -112,6 +112,7 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.8.0-RC2")
 
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.35.0-alpha")
+    implementation ("com.google.accompanist:accompanist-navigation-animation:0.35.0-alpha")
 //    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0-RC2")
 //    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.6.4")
     testImplementation ("com.google.truth:truth:1.1.3")

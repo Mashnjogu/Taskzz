@@ -44,7 +44,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    DestinationsNavHost(navGraph = NavGraphs.root)
+                    DestinationsNavHost(
+                        navGraph = NavGraphs.root,
+                    )
 //                    LoginScreen(
 //                        onLoginCompleted = {
 //                            Log.d("Main Activity", "log has completed")
