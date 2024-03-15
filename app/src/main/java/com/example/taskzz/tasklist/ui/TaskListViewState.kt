@@ -1,7 +1,7 @@
-package com.example.taskzz.home.tasklist.ui
+package com.example.taskzz.tasklist.ui
 
 import com.example.taskzz.core.ui.components.UiText
-import com.example.taskzz.home.tasklist.domain.model.Task
+import com.example.taskzz.tasklist.domain.model.Task
 
 sealed class TaskListViewState{
     object Loading: TaskListViewState()

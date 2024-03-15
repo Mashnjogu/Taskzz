@@ -1,4 +1,4 @@
-package com.example.taskzz.home.tasklist.ui
+package com.example.taskzz.tasklist.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

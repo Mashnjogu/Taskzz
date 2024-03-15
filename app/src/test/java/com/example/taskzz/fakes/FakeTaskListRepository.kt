@@ -1,8 +1,8 @@
 package com.example.taskzz.fakes
 
 import com.example.taskzz.core.data.Result
-import com.example.taskzz.home.tasklist.domain.model.Task
-import com.example.taskzz.home.tasklist.domain.repository.TaskListRepository
+import com.example.taskzz.tasklist.domain.model.Task
+import com.example.taskzz.tasklist.domain.repository.TaskListRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 

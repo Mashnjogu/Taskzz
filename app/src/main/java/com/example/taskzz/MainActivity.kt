@@ -18,7 +18,7 @@ import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.taskzz.home.tasklist.ui.TaskListScreen
+import com.example.taskzz.tasklist.ui.TaskListScreen
 import com.example.taskzz.login.domain.usecase.DemoCredentialsLoginUseCase
 import com.example.taskzz.login.ui.LoginScreen
 import com.example.taskzz.login.ui.LoginViewModel

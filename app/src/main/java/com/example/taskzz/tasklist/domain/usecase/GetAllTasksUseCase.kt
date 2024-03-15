@@ -1,7 +1,7 @@
-package com.example.taskzz.home.tasklist.domain.usecase
+package com.example.taskzz.tasklist.domain.usecase
 
 import com.example.taskzz.core.data.Result
-import com.example.taskzz.home.tasklist.domain.model.Task
+import com.example.taskzz.tasklist.domain.model.Task
 
 /*
 Usecases should have Result classes associated with them

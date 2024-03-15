@@ -1,12 +1,12 @@
 package com.example.taskzz.tasklist.ui
 
 import com.example.taskzz.CoroutineTestRule
-import com.example.taskzz.home.tasklist.domain.model.Task
+import com.example.taskzz.tasklist.domain.model.Task
 import org.junit.Rule
 import org.junit.Test
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
-import com.example.taskzz.home.tasklist.ui.TaskListViewState
+import com.example.taskzz.tasklist.ui.TaskListViewState
 
 class TaskListViewModelTest {
 

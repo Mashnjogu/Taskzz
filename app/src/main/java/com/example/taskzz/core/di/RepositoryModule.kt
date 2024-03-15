@@ -1,7 +1,7 @@
 package com.example.taskzz.core.di
 
-import com.example.taskzz.home.tasklist.domain.repository.DemoTaskListRepository
-import com.example.taskzz.home.tasklist.domain.repository.TaskListRepository
+import com.example.taskzz.tasklist.domain.repository.DemoTaskListRepository
+import com.example.taskzz.tasklist.domain.repository.TaskListRepository
 import com.example.taskzz.login.domain.repository.DemoLoginRepository
 import com.example.taskzz.login.domain.repository.DemoTokenRepository
 import com.example.taskzz.login.domain.repository.LoginRepository

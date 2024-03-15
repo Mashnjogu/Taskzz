@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.taskzz.destinations.LoginScreenDestination
 import com.example.taskzz.destinations.TaskListScreenDestination
-import com.example.taskzz.home.tasklist.ui.TaskListScreen
+import com.example.taskzz.tasklist.ui.TaskListScreen
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator

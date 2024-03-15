@@ -1,7 +1,7 @@
 package com.example.taskzz.core.di
 
-import com.example.taskzz.home.tasklist.domain.usecase.GetAllTasksUseCase
-import com.example.taskzz.home.tasklist.domain.usecase.ProdGetAllTasksUseCase
+import com.example.taskzz.tasklist.domain.usecase.GetAllTasksUseCase
+import com.example.taskzz.tasklist.domain.usecase.ProdGetAllTasksUseCase
 import com.example.taskzz.login.domain.usecase.CredentialsLoginUseCase
 import com.example.taskzz.login.domain.usecase.ProdCredentialsLoginUseCase
 import dagger.Binds
