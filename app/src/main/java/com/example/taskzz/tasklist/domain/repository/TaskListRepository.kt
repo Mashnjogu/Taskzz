@@ -5,9 +5,9 @@ import com.example.taskzz.core.data.Result
 interface  TaskListRepository {
     suspend fun fetchAllTasks(): Result<List<Task>>
 
-    suspend fun addTask(task: Task): Result<Task>
+    suspend fun addTask(task: Task): Result<Unit>
 
-    suspend fun deleteTask(task: Task): Result<Task>
+    suspend fun deleteTask(task: Task): Result<Unit>
 
     suspend fun markAsComplete(task: Task): Result<Unit>
 

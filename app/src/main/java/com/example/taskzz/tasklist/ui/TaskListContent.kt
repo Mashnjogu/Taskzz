@@ -3,6 +3,7 @@ package com.example.taskzz.tasklist.ui
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -49,28 +50,17 @@ fun TaskListContent(
     onAddButtonClicked: () -> Unit
 ){
 
-
-//    Column(modifier = Modifier
-//        .fillMaxSize()
-//        .padding(16.dp)){
-//
-//
-//        Text(text = "The state is $viewState")
-//        Spacer(modifier = Modifier.height(8.dp))
-//    }
-
  Box(modifier = Modifier.fillMaxSize()){
-
-
+     println("TaskListContent viewstate is $viewState")
         when(viewState){
            is TaskListViewState.Loading -> {
-               MaterialCircularProgressIndicator(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .align(Alignment.Center)
-                )
+//               MaterialCircularProgressIndicator(
+//                    modifier = Modifier
+//                        .wrapContentSize()
+//                        .align(Alignment.Center)
+//                )
 
-
+               Text(text = "Loading...")
             }
 
             is TaskListViewState.Error -> {
@@ -131,7 +121,7 @@ private fun TaskListToolBar() {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-            .statusBarsPadding()
+                .statusBarsPadding()
                 .height(toolBarHeight)
 
         ) {

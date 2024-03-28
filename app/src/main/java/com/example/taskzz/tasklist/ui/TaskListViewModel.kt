@@ -24,7 +24,7 @@ class TaskListViewModel @Inject constructor(
 
     init {
 
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.Default){
 
             val getTasksResults = getAllTasksUseCase()
 
@@ -40,6 +40,7 @@ class TaskListViewModel @Inject constructor(
                     )
                 }
             }
+
         }
 
     }

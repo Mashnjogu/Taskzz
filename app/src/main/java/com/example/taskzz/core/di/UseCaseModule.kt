@@ -1,5 +1,7 @@
 package com.example.taskzz.core.di
 
+import com.example.taskzz.addtask.domain.usecase.AddTasksUseCase
+import com.example.taskzz.addtask.domain.usecase.ProdAddTaskUseCase
 import com.example.taskzz.tasklist.domain.usecase.GetAllTasksUseCase
 import com.example.taskzz.tasklist.domain.usecase.ProdGetAllTasksUseCase
 import com.example.taskzz.login.domain.usecase.CredentialsLoginUseCase
@@ -23,5 +25,11 @@ abstract class UseCaseModule{
     abstract fun bindGetAllTasksUseCase(
         getAllTasksUseCase: ProdGetAllTasksUseCase
     ): GetAllTasksUseCase
+
+   @Binds
+   abstract fun bindAddTaskUseCase(
+       addTaskUseCase: ProdAddTaskUseCase
+   ): AddTasksUseCase
+
 
 }
