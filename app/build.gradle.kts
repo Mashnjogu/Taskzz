@@ -104,6 +104,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation("junit:junit:4.12")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
     testImplementation(libs.junit)
     //testing
     testImplementation("junit:junit:4.13.2")
@@ -137,7 +139,9 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
     //compose navigation
     implementation("androidx.navigation:navigation-compose:$2.7.7")
-
+    //Pranav's datepicker
+    implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.9.0")
+    implementation ("io.github.vanpra.compose-material-dialogs:datetime:0.9.0")
 }
 
 kapt {

@@ -1,7 +1,7 @@
 package com.example.taskzz.addtask.ui
 
 import android.content.res.Configuration
-import android.widget.Space
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,9 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,9 +29,10 @@ import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.ui.theme.TaskzzTheme
 import java.time.LocalDate
 import com.example.taskzz.R
-import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
+import com.example.taskzz.core.ui.components.TaskzzDatePicker
 import com.example.taskzz.core.ui.components.getString
-import com.example.taskzz.login.ui.LoginViewState
+import com.example.taskzz.destinations.Destination
+import com.google.android.material.datepicker.MaterialDatePicker
 
 
 //remember to change the fonts from title large to headline large
@@ -51,6 +49,7 @@ fun AddTaskContent(
             AddTasksInputColumn(
                 viewState = viewState,
                 onTaskDescriptionChanged = onTaskDescriptionChanged,
+                onTaskScheduledDateChanged = onTaskScheduledDateChanged,
                 onSubmitClicked = onSubmitClicked,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -68,23 +67,16 @@ fun AddTaskContent(
 //                    .wrapContentSize()
 //                    .align(Alignment.Center)
 //            )
-
-
-
-
             }
 
         }
-
-
-
-
 }
 
 @Composable
 private fun AddTasksInputColumn(
     viewState: AddTaskViewState,
     onTaskDescriptionChanged: (String) -> Unit,
+    onTaskScheduledDateChanged: (LocalDate) -> Unit,
     onSubmitClicked: () -> Unit,
     modifier: Modifier
 ) {
@@ -104,6 +96,8 @@ private fun AddTasksInputColumn(
         TaskDateLabel()
 
         TaskDateInput(
+            value = viewState.taskInput.scheduledDate,
+            onValueChanged = onTaskScheduledDateChanged ,
             enabled = viewState.inputEnabled
         )
 
@@ -151,13 +145,14 @@ private fun TaskDateLabel() {
 
 @Composable
 private fun TaskDateInput(
+    value: LocalDate,
+    onValueChanged: (LocalDate) -> Unit,
     enabled: Boolean
 ) {
-    TaskzTextField(
-        text = "Today",
-        onTextChanged = {},
-        labelText = "",
-        enabled = enabled
+    TaskzzDatePicker(
+        value = value,
+        onValueChanged = onValueChanged,
+        modifier = Modifier.fillMaxWidth()
     )
 }
 
@@ -183,7 +178,6 @@ private fun TaskDescriptionLabel() {
         textAlign = TextAlign.Center
     )
 }
-
 
 
 
