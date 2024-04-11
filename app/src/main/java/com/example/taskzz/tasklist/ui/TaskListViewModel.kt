@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.tasklist.domain.usecase.GetAllTasksUseCase
-import com.example.taskzz.tasklist.domain.usecase.ProdGetAllTasksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,8 +29,12 @@ class TaskListViewModel @Inject constructor(
 
             _viewState.value = when(getTasksResults){
                 is Result.Success -> {
+                    val displayModel = getTasksResults.data.map {
+                        it.toDisplayModel()
+                    }
+
                     TaskListViewState.Loaded(
-                        tasks = getTasksResults.data
+                        tasks = displayModel
                     )
                 }
                 is Result.Error -> {
@@ -44,5 +47,6 @@ class TaskListViewModel @Inject constructor(
         }
 
     }
+
 
 }

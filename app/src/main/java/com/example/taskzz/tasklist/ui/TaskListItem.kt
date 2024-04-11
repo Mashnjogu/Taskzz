@@ -8,21 +8,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.ui.theme.TaskzzTheme
 import com.example.taskzz.R
 import com.example.taskzz.core.ui.components.TaskzTextButton
 
 @Composable
 fun TaskListItem(
-    task: Task,
+    task: TaskDisplayModel,
     onRescheduleClicked: () -> Unit,
     onDoneClicked: () -> Unit
 ){
@@ -104,7 +102,7 @@ private fun TaskListPreview(){
 
     TaskzzTheme {
         TaskListItem(
-            task = Task("Clean my office space"),
+            task = TaskDisplayModel("","Clean my office space", ""),
             onDoneClicked = {},
             onRescheduleClicked = {}
         )
