@@ -21,8 +21,6 @@ import com.example.taskzz.core.ui.components.TaskzTextButton
 @Composable
 fun TaskListItem(
     task: TaskDisplayModel,
-    onRescheduleClicked: () -> Unit,
-    onDoneClicked: () -> Unit
 ){
     Card {
         Column(
@@ -34,8 +32,8 @@ fun TaskListItem(
             )
 
             ButtonRow(
-                onRescheduleClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked
+                onRescheduleClicked = task.onRescheduleClicked,
+                onDoneClicked = task.onDoneClicked
             )
         }
     }
@@ -102,9 +100,12 @@ private fun TaskListPreview(){
 
     TaskzzTheme {
         TaskListItem(
-            task = TaskDisplayModel("","Clean my office space", ""),
-            onDoneClicked = {},
-            onRescheduleClicked = {}
+            task = TaskDisplayModel(
+                description = "",
+                scheduledDate = "Clean my office space",
+                onRescheduleClicked = {},
+                onDoneClicked = {}
+            ),
         )
     }
 }

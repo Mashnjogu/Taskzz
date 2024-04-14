@@ -45,8 +45,6 @@ import com.example.taskzz.ui.theme.TaskzzTheme
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit
 ){
 
@@ -68,10 +66,8 @@ fun TaskListContent(
            }
             is TaskListViewState.Loaded -> {
                LoadedTasksContent(
-                    viewState,
-                    onAddButtonClicked,
-                    onRescheduleClicked,
-                    onDoneClicked
+                    viewState= viewState,
+                    onAddButtonClicked = onAddButtonClicked,
                 )
 
 
@@ -86,8 +82,6 @@ fun TaskListContent(
 private fun LoadedTasksContent(
     viewState: TaskListViewState.Loaded,
     onAddButtonClicked: () -> Unit,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -103,8 +97,6 @@ private fun LoadedTasksContent(
 
             TaskList(
                 tasks = viewState.tasks,
-                onRescheduledClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked,
                 modifier = Modifier.padding(paddingValues)
 
             )
@@ -178,8 +170,11 @@ private fun AddTaskButton(
 private fun TaskListContentPreview() {
 
     val tasks = (1..10).map { index ->
-        Task(
+        TaskDisplayModel(
             description = "Task $index",
+            scheduledDate = "Today",
+            onRescheduleClicked = {},
+            onDoneClicked = {}
         )
     }
 
@@ -188,8 +183,6 @@ private fun TaskListContentPreview() {
     TaskzzTheme {
         TaskListContent(
             viewState = viewState,
-            onRescheduleClicked = {},
-            onDoneClicked = {},
             onAddButtonClicked = {}
         )
     }

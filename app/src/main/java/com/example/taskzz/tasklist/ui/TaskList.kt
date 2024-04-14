@@ -15,8 +15,6 @@ import com.example.taskzz.R
 @Composable
 fun TaskList(
     tasks: List<TaskDisplayModel>,
-    onRescheduledClicked: (TaskDisplayModel) -> Unit,
-    onDoneClicked: (TaskDisplayModel) -> Unit,
     modifier: Modifier = Modifier
 ){
     LazyColumn(
@@ -27,12 +25,6 @@ fun TaskList(
         items(tasks){task ->
             TaskListItem(
                 task = task,
-                onRescheduleClicked = {
-                    onRescheduledClicked(task)
-                },
-                onDoneClicked = {
-                    onDoneClicked(task)
-                }
             )
         }
     }
@@ -49,17 +41,16 @@ fun TaskList(
 @Composable
 private fun TaskListPreview(){
     val tasks = (1..10).map { index ->
-        Task(
+        TaskDisplayModel(
             description = "Task $index",
+            scheduledDate = "Today",
+            onRescheduleClicked = {},
+            onDoneClicked = {}
         )
     }
     TaskzzTheme {
         TaskList(
-            tasks = tasks.map {
-                              it.toDisplayModel()
-            },
-            onRescheduledClicked = {},
-            onDoneClicked = {}
+            tasks = tasks,
         )
     }
 }

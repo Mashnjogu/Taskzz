@@ -4,17 +4,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
+import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.tasklist.domain.usecase.GetAllTasksUseCase
+import com.example.taskzz.tasklist.domain.usecase.RescheduleTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
     private val getAllTasksUseCase: GetAllTasksUseCase,
+    private val rescheduleTaskUseCase: RescheduleTaskUseCase
 ): ViewModel(){
 
     private val _viewState: MutableStateFlow<TaskListViewState> = MutableStateFlow(TaskListViewState.Loading)
@@ -29,8 +33,8 @@ class TaskListViewModel @Inject constructor(
 
             _viewState.value = when(getTasksResults){
                 is Result.Success -> {
-                    val displayModel = getTasksResults.data.map {
-                        it.toDisplayModel()
+                    val displayModel = getTasksResults.data.map {task ->
+                        mapToDisplayModel(task)
                     }
 
                     TaskListViewState.Loaded(
@@ -46,6 +50,24 @@ class TaskListViewModel @Inject constructor(
 
         }
 
+    }
+
+    private fun mapToDisplayModel(task: Task): TaskDisplayModel {
+        val friendlyDatePattern = "MMM dd yyyy"
+        val friendlyDateFormatter = DateTimeFormatter.ofPattern(friendlyDatePattern)
+
+        return TaskDisplayModel(
+            description = task.description,
+            scheduledDate = friendlyDateFormatter.format(task.scheduledDate),
+            onRescheduleClicked = {
+                viewModelScope.launch {
+                    rescheduleTaskUseCase(task.id)
+                }
+            },
+            onDoneClicked = {
+
+            }
+        )
     }
 
 

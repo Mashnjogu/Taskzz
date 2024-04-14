@@ -18,8 +18,6 @@ fun TaskListScreen(
     println("TaskListScreen viewstate is ${viewState.value}")
         TaskListContent(
             viewState = viewState.value,
-            onRescheduleClicked = {},
-            onDoneClicked = {},
             onAddButtonClicked = {
                 navigator.navigate(AddTasksScreenDestination)
             }
