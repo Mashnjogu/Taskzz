@@ -8,18 +8,19 @@ import com.example.taskzz.tasklist.domain.usecase.ProdGetAllTasksUseCase
 import com.example.taskzz.tasklist.ui.TaskListViewModel
 import com.example.taskzz.tasklist.ui.TaskListViewState
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 
 class TaskListViewModelRobot {
 
     private val fakeTaskListRepository = FakeTaskListRepository()
-    private val fakeGetAllTasksUseCase = FakeGetAllTasksUseCase()
     private lateinit var viewModel: TaskListViewModel
 
     fun buildViewModel() = apply{
         viewModel = TaskListViewModel(
             getAllTasksUseCase = ProdGetAllTasksUseCase(
                 taskListRepository = fakeTaskListRepository.mock
-            )
+            ),
+            defaultDispatcher = TestCoroutineDispatcher()
         )
     }
 

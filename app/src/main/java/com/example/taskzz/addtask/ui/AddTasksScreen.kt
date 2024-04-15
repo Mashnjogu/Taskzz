@@ -13,7 +13,7 @@ import com.example.taskzz.R
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 
-@Destination(start = true)
+@Destination
 @Composable
 fun AddTasksScreen(
     viewModel: AddTasksViewModel = hiltViewModel()

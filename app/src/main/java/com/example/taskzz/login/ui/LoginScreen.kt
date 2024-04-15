@@ -8,6 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.taskzz.destinations.LoginScreenDestination
 import com.example.taskzz.destinations.TaskListScreenDestination
 import com.example.taskzz.tasklist.ui.TaskListScreen
 import com.ramcosta.composedestinations.annotation.Destination
@@ -15,10 +16,10 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 
-@RootNavGraph(start = true)
-//@Destination(
-//    start = true
-//)
+
+@Destination(
+    start = true
+)
 @Composable
 fun LoginScreen(
     navigator: DestinationsNavigator,
@@ -27,23 +28,19 @@ fun LoginScreen(
 ){
     val viewState = viewModel.viewState.collectAsState()
 
-    val coroutineScope = rememberCoroutineScope()
-
-    println("The viewstate is ${viewState.value}")
-
-    
-    SideEffect {
-        coroutineScope.launch {
-            viewModel.loginCompletedChannel.receive()
+    //if the viewState changes, the LaunchedEffect is recalled
+    LaunchedEffect(viewState.value) {
+        if (viewState.value is LoginViewState.Completed){
             navigator.navigate(TaskListScreenDestination){
-//                this.popUpTo(
-//                    LoginScreenDestination.route,
-//                ){
-//                    this.inclusive = true
-//                }
+                this.popUpTo(
+                    LoginScreenDestination.route
+                ){
+                    this.inclusive = true
+                }
             }
         }
     }
+
 
     val context = LocalContext.current
 

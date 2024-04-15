@@ -27,11 +27,20 @@ class TaskListViewModelTest {
             taskList
         )
 
+        val expectedTaskList = listOf(
+            TaskDisplayModel(
+                description = task.description,
+                scheduledDate = task.scheduledDate.toString(),
+                onRescheduleClicked = {},
+                onDoneClicked = {}
+            )
+        )
+
         testRobot
             .mockAllTestResult(taskResponse)
             .buildViewModel()
             .assertViewState(
-                expectedViewState = TaskListViewState.Loaded(tasks = taskList)
+                expectedViewState = TaskListViewState.Loaded(tasks = expectedTaskList)
             )
 
 

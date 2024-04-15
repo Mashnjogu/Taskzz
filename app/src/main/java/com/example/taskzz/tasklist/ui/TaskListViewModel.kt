@@ -8,6 +8,7 @@ import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.tasklist.domain.usecase.GetAllTasksUseCase
 import com.example.taskzz.tasklist.domain.usecase.RescheduleTaskUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
     private val getAllTasksUseCase: GetAllTasksUseCase,
-    private val rescheduleTaskUseCase: RescheduleTaskUseCase
+//    private val rescheduleTaskUseCase: RescheduleTaskUseCase,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ): ViewModel(){
 
     private val _viewState: MutableStateFlow<TaskListViewState> = MutableStateFlow(TaskListViewState.Loading)
@@ -27,7 +29,7 @@ class TaskListViewModel @Inject constructor(
 
     init {
 
-        viewModelScope.launch(Dispatchers.Default){
+        viewModelScope.launch(defaultDispatcher){
 
             val getTasksResults = getAllTasksUseCase()
 
@@ -61,7 +63,7 @@ class TaskListViewModel @Inject constructor(
             scheduledDate = friendlyDateFormatter.format(task.scheduledDate),
             onRescheduleClicked = {
                 viewModelScope.launch {
-                    rescheduleTaskUseCase(task.id)
+//                    rescheduleTaskUseCase(task.id)
                 }
             },
             onDoneClicked = {
