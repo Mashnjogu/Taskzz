@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class DemoTokenRepository @Inject constructor(): TokenRepository {
     override fun storeToken(authToken: Token) {
-        TODO("Not yet implemented")
+
     }
 
     override fun fetchToken(): Token? {

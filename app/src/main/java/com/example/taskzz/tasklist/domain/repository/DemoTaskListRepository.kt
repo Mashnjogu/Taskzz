@@ -1,11 +1,20 @@
 package com.example.taskzz.tasklist.domain.repository
 
+import android.util.Log
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.tasklist.domain.model.Task
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DemoTaskListRepository @Inject constructor(): TaskListRepository {
+
+    init {
+        Log.d("DemoTaskListRepository", "Creating the repository")
+    }
 
     private val tasks: MutableList<Task> =  (1..10).map { index ->
         Task(
@@ -13,15 +22,17 @@ class DemoTaskListRepository @Inject constructor(): TaskListRepository {
         )
     }.toMutableList()
 
-    override suspend fun fetchAllTasks(): Result<List<Task>> {
-        @Suppress("BlockingMethodInNonBlockingContext")
-        delay(2_000)
-
-        return Result.Success(tasks)
+    private val taskFlow = MutableStateFlow(tasks)
+    override fun fetchAllTasks(): Flow<Result<List<Task>>> {
+        return taskFlow.map {tasks ->
+            Result.Success(tasks)
+        }
     }
 
     override suspend fun addTask(task: Task): Result<Unit> {
         tasks.add(0,task)
+
+        taskFlow.value = tasks
         return Result.Success(Unit)
     }
 

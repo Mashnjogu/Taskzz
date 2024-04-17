@@ -2,8 +2,10 @@ package com.example.taskzz.tasklist.domain.repository
 
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.core.data.Result
+import kotlinx.coroutines.flow.Flow
+
 interface  TaskListRepository {
-    suspend fun fetchAllTasks(): Result<List<Task>>
+    fun fetchAllTasks(): Flow<Result<List<Task>>>
 
     suspend fun addTask(task: Task): Result<Unit>
 

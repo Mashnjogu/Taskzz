@@ -129,7 +129,7 @@ private fun TaskListToolBar() {
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
 //                fontSize = 36.sp,
-                style = MaterialTheme.typography.headlineLarge,
+//                style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold
             )
             IconButton(onClick = { /*TODO*/ }) {

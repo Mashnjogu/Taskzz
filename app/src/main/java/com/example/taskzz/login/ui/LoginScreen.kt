@@ -1,7 +1,9 @@
 package com.example.taskzz.login.ui
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
@@ -28,8 +30,10 @@ fun LoginScreen(
 ){
     val viewState = viewModel.viewState.collectAsState()
 
+    println("LoginScreen: The viewState is $viewState")
+
     //if the viewState changes, the LaunchedEffect is recalled
-    LaunchedEffect(viewState.value) {
+    DisposableEffect(viewState.value){
         if (viewState.value is LoginViewState.Completed){
             navigator.navigate(TaskListScreenDestination){
                 this.popUpTo(
@@ -38,7 +42,11 @@ fun LoginScreen(
                     this.inclusive = true
                 }
             }
+
+
         }
+
+        onDispose {  }
     }
 
 

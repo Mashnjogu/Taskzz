@@ -1,7 +1,9 @@
 package com.example.taskzz.tasklist.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.taskzz.addtask.ui.AddTaskViewState
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.tasklist.domain.model.Task
@@ -12,6 +14,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -28,30 +32,12 @@ class TaskListViewModel @Inject constructor(
 
 
     init {
-
-        viewModelScope.launch(defaultDispatcher){
-
-            val getTasksResults = getAllTasksUseCase()
-
-            _viewState.value = when(getTasksResults){
-                is Result.Success -> {
-                    val displayModel = getTasksResults.data.map {task ->
-                        mapToDisplayModel(task)
-                    }
-
-                    TaskListViewState.Loaded(
-                        tasks = displayModel
-                    )
-                }
-                is Result.Error -> {
-                    TaskListViewState.Error(
-                        errorMessage = UiText.StringText("Something went wrong")
-                    )
-                }
+        Log.d("TaskListViewModel", "Creating tasks")
+        getAllTasksUseCase()
+            .onEach {result ->
+                _viewState.value = getViewStateForTaskListResult(result)
             }
-
-        }
-
+            .launchIn(viewModelScope)
     }
 
     private fun mapToDisplayModel(task: Task): TaskDisplayModel {
@@ -71,6 +57,22 @@ class TaskListViewModel @Inject constructor(
             }
         )
     }
+
+    private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState{
+        return when(result){
+            is Result.Success -> {
+                TaskListViewState.Loaded(
+                    tasks = result.data.map { mapToDisplayModel(it) }
+                )
+            }
+            is Result.Error -> {
+                TaskListViewState.Error(
+                    errorMessage = UiText.StringText("Something went wrong")
+                )
+            }
+            }
+        }
+
 
 
 }
