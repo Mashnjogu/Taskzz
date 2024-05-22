@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -29,6 +31,7 @@ import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.ui.theme.TaskzzTheme
 import java.time.LocalDate
 import com.example.taskzz.R
+import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
 import com.example.taskzz.core.ui.components.TaskzzDatePicker
 import com.example.taskzz.core.ui.components.getString
 import com.example.taskzz.destinations.Destination
@@ -58,15 +61,21 @@ fun AddTaskContent(
 
             if(viewState is AddTaskViewState.Submitting){
 
-                Text(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = "Loading"
-                )
-//            MaterialCircularProgressIndicator(
-//                modifier = Modifier
+//                Text(
+//                    modifier = Modifier.align(Alignment.Center),
+//                    text = "Loading"
+//                )
+
+//                CircularProgressIndicator(
+//                    modifier = Modifier
 //                    .wrapContentSize()
 //                    .align(Alignment.Center)
-//            )
+//                )
+            MaterialCircularProgressIndicator(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .align(Alignment.Center)
+            )
             }
 
         }

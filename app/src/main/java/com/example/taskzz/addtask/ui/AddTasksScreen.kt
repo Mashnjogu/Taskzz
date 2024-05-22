@@ -23,7 +23,7 @@ fun AddTasksScreen(
     navigator: DestinationsNavigator,
     viewModel: AddTasksViewModel = hiltViewModel()
 ){
-    val b: String = ""
+
     val viewState = viewModel.viewState.collectAsState()
     
         DisposableEffect(viewState.value){

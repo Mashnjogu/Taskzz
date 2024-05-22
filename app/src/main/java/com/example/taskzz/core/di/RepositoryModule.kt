@@ -1,5 +1,6 @@
 package com.example.taskzz.core.di
 
+import com.example.taskzz.core.data.local.RoomTaskListRepository
 import com.example.taskzz.tasklist.domain.repository.DemoTaskListRepository
 import com.example.taskzz.tasklist.domain.repository.TaskListRepository
 import com.example.taskzz.login.domain.repository.DemoLoginRepository
@@ -22,5 +23,5 @@ abstract class RepositoryModule {
     abstract fun bindLoginRepository(loginRepository: DemoLoginRepository): LoginRepository
 
     @Binds
-    abstract fun bindTaskListRepository(taskListRepository: DemoTaskListRepository): TaskListRepository
+    abstract fun bindTaskListRepository(taskListRepository: RoomTaskListRepository): TaskListRepository
 }

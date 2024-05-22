@@ -5,6 +5,7 @@ import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.tasklist.domain.repository.TaskListRepository
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.flow.flowOf
 
 class FakeTaskListRepository {
 
@@ -13,6 +14,6 @@ class FakeTaskListRepository {
     fun mockFetchAllTasks(response: Result<List<Task>>){
         coEvery {
             mock.fetchAllTasks()
-        }returns response
+        }returns flowOf(response)
     }
 }

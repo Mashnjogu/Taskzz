@@ -5,6 +5,7 @@ import com.example.taskzz.core.data.Result
 import kotlinx.coroutines.flow.Flow
 
 interface  TaskListRepository {
+
     fun fetchAllTasks(): Flow<Result<List<Task>>>
 
     suspend fun addTask(task: Task): Result<Unit>
