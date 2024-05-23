@@ -1,5 +1,6 @@
 package com.example.taskzz.core.data.local
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -9,4 +10,6 @@ data class PersistableTask(
     val id: String,
     val description: String,
     val scheduledDate: String,
+    @ColumnInfo(defaultValue = "Auto_migration column")
+    val autoMigrationName: String
 )

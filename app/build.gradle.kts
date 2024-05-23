@@ -7,6 +7,7 @@ plugins {
     id ("kotlin-kapt")
     id("com.google.devtools.ksp")
 
+
 //    id ("com.google.devtools.ksp") version("1.9.0-1.0.13")
 
 
@@ -27,6 +28,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas".toString())
+        }
+
+
+
     }
 
     buildTypes {
@@ -72,6 +79,8 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+
 
 //    applicationVariants.all {
 //        addJavaSourceFoldersToModel(

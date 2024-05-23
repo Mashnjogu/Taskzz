@@ -19,13 +19,16 @@ fun TaskListScreen(
     val viewState = viewModel.viewState.collectAsState()
 
     println("TaskListScreen viewstate is ${viewState.value}")
-        TaskListContent(
-            viewState = viewState.value,
-            onAddButtonClicked = {
-                navigator.navigate(AddTasksScreenDestination)
-            }
-        )
+    TaskListContent(
+        viewState = viewState.value,
+        onRescheduleClicked = {},
+        onDoneClicked = {},
+        onAddButtonClicked = {
+            navigator.navigate(AddTasksScreenDestination)
+        },
+    )
 
 
 
 }
+

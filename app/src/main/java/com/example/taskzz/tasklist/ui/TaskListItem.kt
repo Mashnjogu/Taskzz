@@ -17,10 +17,14 @@ import androidx.compose.ui.unit.dp
 import com.example.taskzz.ui.theme.TaskzzTheme
 import com.example.taskzz.R
 import com.example.taskzz.core.ui.components.TaskzTextButton
+import com.example.taskzz.tasklist.domain.model.Task
+import java.time.LocalDate
 
 @Composable
 fun TaskListItem(
-    task: TaskDisplayModel,
+    task: Task,
+    onRescheduleClicked: () -> Unit,
+    onDoneClicked: () -> Unit,
 ){
     Card {
         Column(
@@ -32,8 +36,8 @@ fun TaskListItem(
             )
 
             ButtonRow(
-                onRescheduleClicked = task.onRescheduleClicked,
-                onDoneClicked = task.onDoneClicked
+                onRescheduleClicked = onRescheduleClicked,
+                onDoneClicked = onDoneClicked
             )
         }
     }
@@ -99,13 +103,16 @@ private fun TaskText(
 private fun TaskListPreview(){
 
     TaskzzTheme {
+        val task = Task(
+            id = "test",
+            description = "Clean my office space.",
+            scheduledDate = LocalDate.now(),
+        )
+
         TaskListItem(
-            task = TaskDisplayModel(
-                description = "",
-                scheduledDate = "Clean my office space",
-                onRescheduleClicked = {},
-                onDoneClicked = {}
-            ),
+            task = task,
+            onRescheduleClicked = {},
+            onDoneClicked = {}
         )
     }
 }

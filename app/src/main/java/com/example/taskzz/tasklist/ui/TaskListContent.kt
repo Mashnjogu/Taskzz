@@ -40,12 +40,15 @@ import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.R
 import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
 import com.example.taskzz.ui.theme.TaskzzTheme
+import java.time.LocalDate
 
 
 @Composable
 fun TaskListContent(
     viewState: TaskListViewState,
-    onAddButtonClicked: () -> Unit
+    onRescheduleClicked: (Task) -> Unit,
+    onDoneClicked: (Task) -> Unit,
+    onAddButtonClicked: () -> Unit,
 ){
 
  Box(modifier = Modifier.fillMaxSize()){
@@ -65,9 +68,11 @@ fun TaskListContent(
 
            }
             is TaskListViewState.Loaded -> {
-               LoadedTasksContent(
-                    viewState= viewState,
-                    onAddButtonClicked = onAddButtonClicked,
+                LoadedTasksContent(
+                    viewState,
+                    onAddButtonClicked,
+                    onRescheduleClicked,
+                    onDoneClicked,
                 )
 
 
@@ -82,6 +87,8 @@ fun TaskListContent(
 private fun LoadedTasksContent(
     viewState: TaskListViewState.Loaded,
     onAddButtonClicked: () -> Unit,
+    onRescheduleClicked: (Task) -> Unit,
+    onDoneClicked: (Task) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -95,11 +102,13 @@ private fun LoadedTasksContent(
         }
     ) { paddingValues ->
 
-            TaskList(
-                tasks = viewState.tasks,
-                modifier = Modifier.padding(paddingValues)
-
-            )
+        TaskList(
+            tasks = viewState.tasks,
+            onRescheduleClicked = onRescheduleClicked,
+            onDoneClicked = onDoneClicked,
+            modifier = Modifier
+                .padding(paddingValues),
+        )
 
     }
 }
@@ -170,11 +179,10 @@ private fun AddTaskButton(
 private fun TaskListContentPreview() {
 
     val tasks = (1..10).map { index ->
-        TaskDisplayModel(
-            description = "Task $index",
-            scheduledDate = "Today",
-            onRescheduleClicked = {},
-            onDoneClicked = {}
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
         )
     }
 
@@ -183,7 +191,9 @@ private fun TaskListContentPreview() {
     TaskzzTheme {
         TaskListContent(
             viewState = viewState,
-            onAddButtonClicked = {}
+            onRescheduleClicked = {},
+            onDoneClicked = {},
+            onAddButtonClicked = {},
         )
     }
 }

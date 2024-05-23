@@ -12,10 +12,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.ui.theme.TaskzzTheme
 import com.example.taskzz.R
+import java.time.LocalDate
+
 @Composable
 fun TaskList(
-    tasks: List<TaskDisplayModel>,
-    modifier: Modifier = Modifier
+    tasks: List<Task>,
+    onRescheduleClicked: (Task) -> Unit,
+    onDoneClicked: (Task) -> Unit,
+    modifier: Modifier = Modifier,
 ){
     LazyColumn(
         contentPadding = PaddingValues(dimensionResource(id = R.dimen.list_padding)),
@@ -25,6 +29,8 @@ fun TaskList(
         items(tasks){task ->
             TaskListItem(
                 task = task,
+                onRescheduleClicked = {},
+                onDoneClicked = {}
             )
         }
     }
@@ -41,16 +47,18 @@ fun TaskList(
 @Composable
 private fun TaskListPreview(){
     val tasks = (1..10).map { index ->
-        TaskDisplayModel(
-            description = "Task $index",
-            scheduledDate = "Today",
-            onRescheduleClicked = {},
-            onDoneClicked = {}
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
         )
     }
+
     TaskzzTheme {
         TaskList(
             tasks = tasks,
+            onRescheduleClicked = {},
+            onDoneClicked = {},
         )
     }
 }

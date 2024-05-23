@@ -62,7 +62,7 @@ class TaskListViewModel @Inject constructor(
         return when(result){
             is Result.Success -> {
                 TaskListViewState.Loaded(
-                    tasks = result.data.map { mapToDisplayModel(it) }
+                    tasks = result.data,
                 )
             }
             is Result.Error -> {
