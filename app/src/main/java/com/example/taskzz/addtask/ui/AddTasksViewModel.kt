@@ -2,6 +2,7 @@ package com.example.taskzz.addtask.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.taskzz.addtask.domain.model.AddTaskResult
 import com.example.taskzz.addtask.domain.usecase.AddTasksUseCase
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
@@ -43,13 +44,13 @@ class AddTasksViewModel @Inject constructor(
         )
 
         viewModelScope.launch {
-            val result = addTasksUseCase(taskToCreate)
+            val result = addTasksUseCase.invoke(taskToCreate)
 
             _viewState.value = when(result){
-                is Result.Success -> {
+                is AddTaskResult.Success -> {
                     AddTaskViewState.Completed
                 }
-                is Result.Error -> {
+                is AddTaskResult.Failure -> {
                     AddTaskViewState.SubmisssionError(
                         taskInput = _viewState.value.taskInput,
                         errorMessage = UiText.StringText("Unable to add Task")

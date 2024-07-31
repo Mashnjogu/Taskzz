@@ -14,12 +14,15 @@ sealed class AddTaskViewState (
     )
     data class Active(
         override val taskInput: TaskInput,
+
     ): AddTaskViewState(
         taskInput = taskInput,
     )
 
     data class Submitting(
         override val taskInput: TaskInput,
+        val descriptionInputErrorMessage: UiText? = null,
+        val scheduledDateErrorMessage: UiText? = null
     ):AddTaskViewState(
         taskInput = taskInput,
         inputEnabled = false

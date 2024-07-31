@@ -16,6 +16,7 @@ sealed class LoginViewState(
         credentials = Credentials()
     )
 
+
     /*
     state of the screen as the user is entering email information
      */

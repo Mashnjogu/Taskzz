@@ -86,6 +86,7 @@ private fun AddTasksInputColumn(
     viewState: AddTaskViewState,
     onTaskDescriptionChanged: (String) -> Unit,
     onTaskScheduledDateChanged: (LocalDate) -> Unit,
+
     onSubmitClicked: () -> Unit,
     modifier: Modifier
 ) {
