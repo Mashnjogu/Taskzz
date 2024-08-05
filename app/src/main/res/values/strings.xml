@@ -9,4 +9,6 @@
     <string name="reschedule">RESCHEDULE</string>
     <string name="done">DONE</string>
     <string name="add_task">Add Task</string>
+    <string name="empty_task_description">Please enter a description</string>
+    <string name="invalid_scheduled_date">Please select a day today or in the future</string>
 </resources>

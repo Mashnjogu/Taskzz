@@ -2,9 +2,10 @@ package com.example.taskzz.addtask.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.taskzz.R
 import com.example.taskzz.addtask.domain.model.AddTaskResult
+import com.example.taskzz.addtask.domain.model.TaskInput
 import com.example.taskzz.addtask.domain.usecase.AddTasksUseCase
-import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.tasklist.domain.model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,11 +51,14 @@ class AddTasksViewModel @Inject constructor(
                 is AddTaskResult.Success -> {
                     AddTaskViewState.Completed
                 }
-                is AddTaskResult.Failure -> {
+                is AddTaskResult.Failure.Unkown -> {
                     AddTaskViewState.SubmisssionError(
                         taskInput = _viewState.value.taskInput,
                         errorMessage = UiText.StringText("Unable to add Task")
                     )
+                }
+                is AddTaskResult.Failure.InvalidInput -> {
+                    result.toViewState(taskInput = _viewState.value.taskInput)
                 }
             }
         }
@@ -64,3 +68,16 @@ class AddTasksViewModel @Inject constructor(
 
 
 }
+
+private fun AddTaskResult.Failure.InvalidInput.toViewState(taskInput: TaskInput): AddTaskViewState{
+    return AddTaskViewState.Active(
+        taskInput = taskInput,
+        descriptionInputErrorMessage = UiText.ResourceText(R.string.empty_task_description).takeIf {
+            this.emptyDescription
+        },
+        scheduledDateErrorMessage = UiText.ResourceText(R.string.invalid_scheduled_date).takeIf {
+            this.scheduledDateInPast
+        },
+    )
+}
+

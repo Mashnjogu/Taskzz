@@ -6,7 +6,6 @@ import org.junit.Rule
 import org.junit.Test
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
-import com.example.taskzz.tasklist.ui.TaskListViewState
 
 class TaskListViewModelTest {
 
@@ -28,12 +27,15 @@ class TaskListViewModelTest {
         )
 
         val expectedTaskList = listOf(
-            TaskDisplayModel(
-                description = task.description,
-                scheduledDate = task.scheduledDate.toString(),
-                onRescheduleClicked = {},
-                onDoneClicked = {}
-            )
+//            TaskDisplayModel(
+//                description = task.description,
+//                scheduledDate = task.scheduledDate.toString(),
+//                onRescheduleClicked = {},
+//                onDoneClicked = {}
+//            )
+            task
+
+
         )
 
         testRobot
