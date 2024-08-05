@@ -100,7 +100,10 @@ private fun AddTasksInputColumn(
         TaskDescriptionInput(
             viewState.taskInput.description,
             onTaskDescriptionChanged,
-            enabled = viewState.inputEnabled
+            enabled = viewState.inputEnabled,
+            errorMessage = (viewState as? AddTaskViewState.Active)
+                ?.descriptionInputErrorMessage
+                ?.getString()
         )
 
         TaskDateLabel()
@@ -170,13 +173,15 @@ private fun TaskDateInput(
 private fun TaskDescriptionInput(
     text: String,
     onTextChanged: (String) -> Unit,
-    enabled: Boolean
+    enabled: Boolean,
+    errorMessage: String?
 ) {
     TaskzTextField(
         text = text,
         onTextChanged = onTextChanged,
         labelText = "",
-        enabled = enabled
+        enabled = enabled,
+        errorMessage = errorMessage
     )
 }
 
