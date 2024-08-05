@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ fun TaskzzDatePicker(
     borderColor: Color = MaterialTheme.colorScheme.onSurface,
     textColor: Color = MaterialTheme.colorScheme.onBackground,
     iconColor: Color = MaterialTheme.colorScheme.onSurface,
+    errorMessage: String? = null
 ) {
 
     val dialogState = rememberMaterialDialogState()
@@ -57,31 +59,64 @@ fun TaskzzDatePicker(
         )
     }
 
-    Box(
-        modifier = modifier
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(
-                    50
-                )
-            )
-            .clickable {
-                dialogState.show()
-            }
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Text(
-                text = value.toUiString(),
-                modifier = Modifier.weight(1f),
-                color = textColor
-            )
+    val hasError = errorMessage != null
 
-            Icon(
-                Icons.Default.DateRange,
-                "Select Date"
+    val borderColorToUse = if (hasError){
+        MaterialTheme.colorScheme.error
+    }else{
+        borderColor
+    }
+
+    val iconColorToUse = if (hasError){
+        MaterialTheme.colorScheme.error
+    }else{
+        iconColor
+    }
+
+
+    Column(
+        modifier = modifier
+    ){
+
+        Box(
+            modifier = Modifier
+                .border(
+                    width = 1.dp,
+                    color = borderColorToUse,
+                    shape = RoundedCornerShape(
+                        50
+                    )
+                )
+                .clickable {
+                    dialogState.show()
+                }
+        ) {
+            Row(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text(
+                    text = value.toUiString(),
+                    modifier = Modifier.weight(1f),
+                    color = textColor
+                )
+
+                Icon(
+                    Icons.Default.DateRange,
+                    "Select Date",
+                    tint = iconColorToUse
+                )
+            }
+        }
+
+        if (errorMessage != null) {
+            Text(
+                text = errorMessage,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier
+                    .padding(
+                        top = 4.dp,
+                        start = 16.dp,
+                    ),
             )
         }
     }
@@ -130,6 +165,30 @@ private fun TaskzzDatePickerPreview(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
+            )
+        }
+    }
+}
+
+@Preview(
+    name = "Night Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Light Mode",
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Composable
+private fun TaskzzDatePickerPreviewWithErrorMessage(){
+    TaskzzTheme {
+        Surface {
+            TaskzzDatePicker(
+                value = LocalDate.now().minusDays(1),
+                onValueChanged = {},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                errorMessage = "Scheduled Date cannot be in the past"
             )
         }
     }

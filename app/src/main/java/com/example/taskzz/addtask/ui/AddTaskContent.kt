@@ -1,7 +1,6 @@
 package com.example.taskzz.addtask.ui
 
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -34,8 +32,6 @@ import com.example.taskzz.R
 import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
 import com.example.taskzz.core.ui.components.TaskzzDatePicker
 import com.example.taskzz.core.ui.components.getString
-import com.example.taskzz.destinations.Destination
-import com.google.android.material.datepicker.MaterialDatePicker
 
 
 //remember to change the fonts from title large to headline large
@@ -111,10 +107,13 @@ private fun AddTasksInputColumn(
         TaskDateInput(
             value = viewState.taskInput.scheduledDate,
             onValueChanged = onTaskScheduledDateChanged ,
-            enabled = viewState.inputEnabled
+            enabled = viewState.inputEnabled,
+            errorMessage = (viewState as? AddTaskViewState.Active)
+                ?.scheduledDateErrorMessage
+                ?.getString()
         )
 
-        if (viewState is AddTaskViewState.SubmisssionError) {
+        if (viewState is AddTaskViewState.SubmissionError) {
 
             Text(
                 text = viewState.errorMessage.getString(),
@@ -160,12 +159,14 @@ private fun TaskDateLabel() {
 private fun TaskDateInput(
     value: LocalDate,
     onValueChanged: (LocalDate) -> Unit,
-    enabled: Boolean
+    enabled: Boolean,
+    errorMessage: String?
 ) {
     TaskzzDatePicker(
         value = value,
         onValueChanged = onValueChanged,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        errorMessage = errorMessage
     )
 }
 
@@ -243,7 +244,7 @@ class AddTaskViewStateProvider: PreviewParameterProvider<AddTaskViewState> {
                 AddTaskViewState.Submitting(
                     taskInput = activeInput,
                 ),
-                AddTaskViewState.SubmisssionError(
+                AddTaskViewState.SubmissionError(
                     taskInput = activeInput,
                     errorMessage = UiText.StringText("Don't buy NFTs."),
                 ),

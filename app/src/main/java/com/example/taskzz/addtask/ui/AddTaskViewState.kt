@@ -2,7 +2,6 @@ package com.example.taskzz.addtask.ui
 
 import com.example.taskzz.addtask.domain.model.TaskInput
 import com.example.taskzz.core.ui.components.UiText
-import java.time.LocalDate
 
 sealed class AddTaskViewState (
     open val taskInput: TaskInput = TaskInput(),
@@ -27,7 +26,7 @@ sealed class AddTaskViewState (
         inputEnabled = false
     )
 
-    data class SubmisssionError(
+    data class SubmissionError(
         override val taskInput: TaskInput,
         val errorMessage: UiText
     ): AddTaskViewState(
