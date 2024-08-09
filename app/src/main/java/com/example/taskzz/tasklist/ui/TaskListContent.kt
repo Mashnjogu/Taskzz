@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.dp
 
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.R
+import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
 import com.example.taskzz.ui.theme.TaskzzTheme
 import java.time.LocalDate
 
@@ -45,31 +48,28 @@ fun TaskListContent(
 
  Box(modifier = Modifier.fillMaxSize()){
      println("TaskListContent viewstate is $viewState")
-        when(viewState){
-           is TaskListViewState.Loading -> {
-//               MaterialCircularProgressIndicator(
-//                    modifier = Modifier
-//                        .wrapContentSize()
-//                        .align(Alignment.Center)
-//                )
 
-               Text(text = "Loading...")
-            }
+     if(viewState.tasks != null){
+         LoadedTasksContent(
+             viewState.tasks,
+             onAddButtonClicked,
+             onRescheduleClicked,
+             onDoneClicked,
+         )
+     }
 
-            is TaskListViewState.Error -> {
+     if(viewState.showLoading){
+//         CircularProgressIndicator(
+//             modifier = Modifier
+//                 .wrapContentSize()
+//                 .align(Alignment.Center)
+//         )
 
-           }
-            is TaskListViewState.Loaded -> {
-                LoadedTasksContent(
-                    viewState,
-                    onAddButtonClicked,
-                    onRescheduleClicked,
-                    onDoneClicked,
-                )
+         Text(text = "Loading.....")
 
 
-            }
-        }
+     }
+
     }
 
 }
@@ -77,11 +77,14 @@ fun TaskListContent(
 
 @Composable
 private fun LoadedTasksContent(
-    viewState: TaskListViewState.Loaded,
+    tasks: List<Task>?,
     onAddButtonClicked: () -> Unit,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
 ) {
+    if(tasks == null){
+        return
+    }
     Scaffold(
         topBar = {
             TaskListToolBar()
@@ -95,7 +98,7 @@ private fun LoadedTasksContent(
     ) { paddingValues ->
 
         TaskList(
-            tasks = viewState.tasks,
+            tasks = tasks,
             onRescheduleClicked = onRescheduleClicked,
             onDoneClicked = onDoneClicked,
             modifier = Modifier
@@ -178,7 +181,7 @@ private fun TaskListContentPreview() {
         )
     }
 
-    val viewState = TaskListViewState.Loaded(tasks)
+    val viewState = TaskListViewState(tasks= tasks)
 
     TaskzzTheme {
         TaskListContent(

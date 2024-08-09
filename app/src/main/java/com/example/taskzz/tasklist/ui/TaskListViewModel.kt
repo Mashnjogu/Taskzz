@@ -7,12 +7,17 @@ import com.example.taskzz.core.data.Result
 import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.tasklist.domain.usecase.GetAllTasksUseCase
+import com.example.taskzz.tasklist.domain.usecase.GetTaskForDateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.time.format.DateTimeFormatter
@@ -20,20 +25,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
-    private val getAllTasksUseCase: GetAllTasksUseCase,
+    private val getTaskForDateUseCase: GetTaskForDateUseCase,
 //    private val rescheduleTaskUseCase: RescheduleTaskUseCase,
     private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Default
 ): ViewModel(){
 
-    private val _viewState: MutableStateFlow<TaskListViewState> = MutableStateFlow(TaskListViewState.Loading)
-    val viewState: StateFlow<TaskListViewState> = _viewState
-
+    private val _viewState: MutableStateFlow<TaskListViewState> = MutableStateFlow(TaskListViewState())
+    val viewState = _viewState.asStateFlow()
 
     init {
-        Log.d("TaskListViewModel", "Creating tasks")
-        getAllTasksUseCase()
-            .onEach {result ->
-                _viewState.value = getViewStateForTaskListResult(result)
+
+        _viewState.map {viewState ->
+            viewState.selectedDate
+        }.distinctUntilChanged() //return a viewstate only when the selected date changes
+            .flatMapLatest { selectedDate ->
+                getTaskForDateUseCase.invoke(date = selectedDate)
+            }.onEach {result ->
+                _viewState.value = getViewStateForTaskListResult(result = result)
             }
             .launchIn(viewModelScope)
     }
@@ -59,14 +67,15 @@ class TaskListViewModel @Inject constructor(
     private fun getViewStateForTaskListResult(result: Result<List<Task>>): TaskListViewState{
         return when(result){
             is Result.Success -> {
-                TaskListViewState.Loaded(
-                    tasks = result.data,
-                )
+                _viewState.value.copy(tasks = result.data, showLoading = false)
+
             }
             is Result.Error -> {
-                TaskListViewState.Error(
-                    errorMessage = UiText.StringText("Something went wrong")
+                _viewState.value.copy(
+                    errorMessage = UiText.StringText("Something went wrong"),
+                    showLoading = false
                 )
+
             }
             }
         }

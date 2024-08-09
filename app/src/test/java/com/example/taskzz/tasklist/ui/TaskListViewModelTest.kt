@@ -26,23 +26,16 @@ class TaskListViewModelTest {
             taskList
         )
 
-        val expectedTaskList = listOf(
-//            TaskDisplayModel(
-//                description = task.description,
-//                scheduledDate = task.scheduledDate.toString(),
-//                onRescheduleClicked = {},
-//                onDoneClicked = {}
-//            )
-            task
-
-
-        )
+        val expectedTaskList = listOf(task)
 
         testRobot
             .mockAllTestResult(taskResponse)
             .buildViewModel()
             .assertViewState(
-                expectedViewState = TaskListViewState.Loaded(tasks = expectedTaskList)
+                expectedViewState = TaskListViewState(
+                    tasks = expectedTaskList,
+                    showLoading = false
+                )
             )
 
 
@@ -57,8 +50,9 @@ class TaskListViewModelTest {
         testRobot
             .buildViewModel()
             .assertViewState(
-                expectedViewState = TaskListViewState.Error(
-                    errorMessage = UiText.StringText("Something went wrong")
+                expectedViewState = TaskListViewState(
+                    errorMessage = UiText.StringText("Something went wrong"),
+                    showLoading = false
                 )
             )
     }

@@ -27,14 +27,24 @@ class AddTasksViewModel @Inject constructor(
         val currentValue = _viewState.value.taskInput
         val newValue = currentValue.copy(scheduledDate = newDate)
 
-        _viewState.value = AddTaskViewState.Active(taskInput = newValue)
+        _viewState.value = AddTaskViewState.Active(
+            taskInput = newValue,
+            descriptionInputErrorMessage = (_viewState.value as? AddTaskViewState.Active)
+                ?.descriptionInputErrorMessage,
+            scheduledDateErrorMessage = null
+        )
     }
 
     fun onTaskDescriptionChanged(newDescription: String){
         val currentDescription = _viewState.value.taskInput
         val newDescriptionValue = currentDescription.copy(description = newDescription)
 
-        _viewState.value = AddTaskViewState.Active(taskInput = newDescriptionValue)
+        _viewState.value = AddTaskViewState.Active(
+            taskInput = newDescriptionValue,
+            descriptionInputErrorMessage = null,
+            scheduledDateErrorMessage = (_viewState.value as? AddTaskViewState.Active)
+                ?.scheduledDateErrorMessage
+        )
     }
 
     fun onSubmitButtonClicked(){
@@ -52,7 +62,7 @@ class AddTasksViewModel @Inject constructor(
                     AddTaskViewState.Completed
                 }
                 is AddTaskResult.Failure.Unkown -> {
-                    AddTaskViewState.SubmisssionError(
+                    AddTaskViewState.SubmissionError(
                         taskInput = _viewState.value.taskInput,
                         errorMessage = UiText.StringText("Unable to add Task")
                     )

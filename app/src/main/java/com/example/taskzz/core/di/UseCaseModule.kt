@@ -6,6 +6,8 @@ import com.example.taskzz.tasklist.domain.usecase.GetAllTasksUseCase
 import com.example.taskzz.tasklist.domain.usecase.ProdGetAllTasksUseCase
 import com.example.taskzz.login.domain.usecase.CredentialsLoginUseCase
 import com.example.taskzz.login.domain.usecase.ProdCredentialsLoginUseCase
+import com.example.taskzz.tasklist.domain.usecase.GetTaskForDateUseCase
+import com.example.taskzz.tasklist.domain.usecase.ProdGetTasksForDateUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -30,6 +32,11 @@ abstract class UseCaseModule{
    abstract fun bindAddTaskUseCase(
        addTaskUseCase: ProdAddTaskUseCase
    ): AddTasksUseCase
+
+   @Binds
+   abstract fun bindGetTasksForDateUseCase(
+        getTaskForDateUseCase: ProdGetTasksForDateUseCase
+    ): GetTaskForDateUseCase
 
 
 }

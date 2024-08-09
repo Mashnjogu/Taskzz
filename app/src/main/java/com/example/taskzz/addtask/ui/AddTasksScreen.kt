@@ -25,12 +25,12 @@ fun AddTasksScreen(
 ){
 
     val viewState = viewModel.viewState.collectAsState()
-    
-        DisposableEffect(viewState.value){
+
+    DisposableEffect(viewState.value){
         if (viewState.value is AddTaskViewState.Completed){
             navigator.popBackStack()
         }
-            onDispose {  }
+        onDispose {  }
     }
 
     Surface{

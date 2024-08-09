@@ -3,6 +3,7 @@ package com.example.taskzz.core.data.local
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.tasklist.domain.repository.TaskListRepository
+import com.example.taskzz.tasklist.domain.repository.TaskListResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
@@ -19,10 +20,15 @@ class RoomTaskListRepository @Inject constructor(
 ): TaskListRepository{
     override fun fetchAllTasks(): Flow<Result<List<Task>>> {
         return taskDAO.fetchAllTasks().map {taskList ->
-            val domainTasks = taskList.map(PersistableTask::toTask)
-
-            Result.Success(domainTasks)
+            Result.Success(taskList.toDomainTaskList())
         }
+    }
+
+    override fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult> {
+        return taskDAO.fetchTasksForDate(date = date.toPersistableDateString())
+            .map {taskList ->
+                Result.Success(taskList.toDomainTaskList())
+            }
     }
 
     override suspend fun addTask(task: Task): Result<Unit> {
@@ -40,14 +46,27 @@ class RoomTaskListRepository @Inject constructor(
     }
 
 }
+
+private fun List<PersistableTask>.toDomainTaskList(): List<Task>{
+    return this.map(PersistableTask::toTask)
+}
+
 private const val PERSISTED_DATE_FORMAT = "yyyy-MM-dd"
 private val persistedDateFormatter = DateTimeFormatter.ofPattern(PERSISTED_DATE_FORMAT)
+
+private fun LocalDate.toPersistableDateString(): String {
+    return persistedDateFormatter.format(this)
+}
+
+private fun String.parsePersistableDateString(): LocalDate{
+    return LocalDate.parse(this, persistedDateFormatter)
+}
 
 private fun PersistableTask.toTask(): Task {
     return Task(
         id = this.id,
         description = this.description,
-        scheduledDate = LocalDate.parse(this.scheduledDate, persistedDateFormatter),
+        scheduledDate = this.scheduledDate.parsePersistableDateString(),
     )
 }
 
@@ -55,7 +74,7 @@ private fun Task.toPersistableTask(): PersistableTask {
     return PersistableTask(
         id = this.id,
         description = this.description,
-        scheduledDate = persistedDateFormatter.format(this.scheduledDate),
+        scheduledDate = this.scheduledDate.toPersistableDateString(),
         autoMigrationName = ""
     )
 }

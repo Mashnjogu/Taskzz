@@ -106,6 +106,8 @@ dependencies {
 
     val room_version = "2.6.1"
 
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -158,6 +160,9 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+    //compose testing
+//    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
+//    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose_version")
 
 }
 
