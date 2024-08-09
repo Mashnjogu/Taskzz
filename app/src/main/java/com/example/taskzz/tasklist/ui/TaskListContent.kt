@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.R
 import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
+import com.example.taskzz.core.ui.components.getString
 import com.example.taskzz.ui.theme.TaskzzTheme
 import java.time.LocalDate
 
@@ -44,6 +45,8 @@ fun TaskListContent(
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     onAddButtonClicked: () -> Unit,
+    onPreviousDateButtonClicked: () -> Unit,
+    onNextDateButtonClicked: () -> Unit
 ){
 
  Box(modifier = Modifier.fillMaxSize()){
@@ -51,10 +54,13 @@ fun TaskListContent(
 
      if(viewState.tasks != null){
          LoadedTasksContent(
-             viewState.tasks,
-             onAddButtonClicked,
-             onRescheduleClicked,
-             onDoneClicked,
+             tasks = viewState.tasks,
+             onAddButtonClicked = onAddButtonClicked,
+             onRescheduleClicked = onRescheduleClicked,
+             onDoneClicked = onDoneClicked,
+             selectedDateString = viewState.selectedDateString.getString(),
+             onPreviousDateButtonClicked = onPreviousDateButtonClicked,
+             onNextDateButtonClicked = onNextDateButtonClicked
          )
      }
 
@@ -81,13 +87,20 @@ private fun LoadedTasksContent(
     onAddButtonClicked: () -> Unit,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
+    selectedDateString: String,
+    onPreviousDateButtonClicked: () -> Unit,
+    onNextDateButtonClicked: () -> Unit
 ) {
     if(tasks == null){
         return
     }
     Scaffold(
         topBar = {
-            TaskListToolBar()
+            TaskListToolBar(
+                onLeftButtonClicked = onPreviousDateButtonClicked,
+                onRightButtonClicked = onNextDateButtonClicked,
+                title = selectedDateString
+            )
         },
         floatingActionButton = {
                 AddTaskButton(
@@ -109,7 +122,11 @@ private fun LoadedTasksContent(
 }
 
 @Composable
-private fun TaskListToolBar() {
+private fun TaskListToolBar(
+    onLeftButtonClicked: () -> Unit,
+    onRightButtonClicked: () -> Unit,
+    title: String
+) {
     val toolBarHeight = 84.dp
     Surface(
         color = MaterialTheme.colorScheme.primary
@@ -121,7 +138,7 @@ private fun TaskListToolBar() {
                 .height(toolBarHeight)
 
         ) {
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onLeftButtonClicked) {
                 Icon(
                     Icons.Default.KeyboardArrowLeft,
                     "Previous Day",
@@ -129,17 +146,17 @@ private fun TaskListToolBar() {
                 )
             }
             Text(
-                text = "Today",
+                text = title,
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
 //                fontSize = 36.sp,
 //                style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.Bold
             )
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = onRightButtonClicked) {
                 Icon(
                     Icons.Default.KeyboardArrowRight,
-                    "Previous Day",
+                    "Next Day",
                     modifier = Modifier.size(84.dp)
                 )
             }
@@ -189,6 +206,8 @@ private fun TaskListContentPreview() {
             onRescheduleClicked = {},
             onDoneClicked = {},
             onAddButtonClicked = {},
+            onPreviousDateButtonClicked = {},
+            onNextDateButtonClicked = {}
         )
     }
 }

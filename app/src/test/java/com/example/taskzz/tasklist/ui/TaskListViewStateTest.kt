@@ -1,0 +1,50 @@
+package com.example.taskzz.tasklist.ui
+
+import com.example.taskzz.core.ui.components.UiText
+import org.junit.Test
+import java.time.LocalDate
+import com.example.taskzz.R
+import com.google.common.truth.Truth.assertThat
+import java.time.format.DateTimeFormatter
+
+
+class TaskListViewStateTest{
+
+    @Test
+    fun parseDateStringForToday(){
+        val today = LocalDate.now()
+        val viewState = TaskListViewState(
+            selectedDate = today
+        )
+
+        val expectedString = UiText.ResourceText(R.string.today)
+
+        assertThat(viewState.selectedDateString).isEqualTo(expectedString)
+    }
+
+    @Test
+    fun parseDateStringForTomorrow(){
+        val tomorrow = LocalDate.now().plusDays(1)
+        val viewState = TaskListViewState(
+            selectedDate = tomorrow
+        )
+
+        val expectedString = UiText.ResourceText(R.string.tomorrow)
+
+        assertThat(viewState.selectedDateString).isEqualTo(expectedString)
+    }
+
+    @Test
+    fun parseDateStringForFuture(){
+        val twoDaysFromNow = LocalDate.now().plusDays(2)
+        val viewState = TaskListViewState(
+            selectedDate = twoDaysFromNow
+        )
+
+        val expectedDateFormat = "MMM d"
+        val expectedDateString = DateTimeFormatter.ofPattern(expectedDateFormat.format(twoDaysFromNow))
+        val expectedString = UiText.StringText(expectedDateString.toString())
+
+        assertThat(viewState.selectedDateString).isEqualTo(expectedString)
+    }
+}

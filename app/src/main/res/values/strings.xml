@@ -11,4 +11,7 @@
     <string name="add_task">Add Task</string>
     <string name="empty_task_description">Please enter a description</string>
     <string name="invalid_scheduled_date">Please select a day today or in the future</string>
+
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 </resources>

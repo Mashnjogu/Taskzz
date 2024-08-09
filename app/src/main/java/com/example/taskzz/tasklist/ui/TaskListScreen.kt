@@ -26,9 +26,12 @@ fun TaskListScreen(
         onAddButtonClicked = {
             navigator.navigate(AddTasksScreenDestination)
         },
+        onPreviousDateButtonClicked = {
+            viewModel.onPreviousDateButtonClicked()
+        },
+        onNextDateButtonClicked = {
+            viewModel.onNextDayButtonClicked()
+        }
     )
-
-
-
 }
 
