@@ -23,6 +23,18 @@ class TaskListViewStateTest{
     }
 
     @Test
+    fun parseDateStringForYesterday(){
+        val yesterday = LocalDate.now().minusDays(1)
+        val viewState = TaskListViewState(
+            selectedDate = yesterday
+        )
+
+        val expectedString = UiText.ResourceText(R.string.yesterday)
+
+        assertThat(viewState.selectedDateString).isEqualTo(expectedString)
+    }
+
+    @Test
     fun parseDateStringForTomorrow(){
         val tomorrow = LocalDate.now().plusDays(1)
         val viewState = TaskListViewState(

@@ -34,6 +34,10 @@ class TaskListViewModel @Inject constructor(
             viewState.selectedDate
         }.distinctUntilChanged() //return a viewstate only when the selected date changes
             .flatMapLatest { selectedDate ->
+                _viewState.value = _viewState.value.copy(
+                    showLoading = true,
+                    tasks = null
+                )
                 getTaskForDateUseCase.invoke(date = selectedDate)
             }.onEach {result ->
                 _viewState.value = getViewStateForTaskListResult(result = result)

@@ -49,77 +49,85 @@ fun TaskListContent(
     onNextDateButtonClicked: () -> Unit
 ){
 
- Box(modifier = Modifier.fillMaxSize()){
-     println("TaskListContent viewstate is $viewState")
-
-     if(viewState.tasks != null){
-         LoadedTasksContent(
-             tasks = viewState.tasks,
-             onAddButtonClicked = onAddButtonClicked,
-             onRescheduleClicked = onRescheduleClicked,
-             onDoneClicked = onDoneClicked,
-             selectedDateString = viewState.selectedDateString.getString(),
-             onPreviousDateButtonClicked = onPreviousDateButtonClicked,
-             onNextDateButtonClicked = onNextDateButtonClicked
-         )
-     }
-
-     if(viewState.showLoading){
-//         CircularProgressIndicator(
-//             modifier = Modifier
-//                 .wrapContentSize()
-//                 .align(Alignment.Center)
-//         )
-
-         Text(text = "Loading.....")
-
-
-     }
-
-    }
-
-}
-
-
-@Composable
-private fun LoadedTasksContent(
-    tasks: List<Task>?,
-    onAddButtonClicked: () -> Unit,
-    onRescheduleClicked: (Task) -> Unit,
-    onDoneClicked: (Task) -> Unit,
-    selectedDateString: String,
-    onPreviousDateButtonClicked: () -> Unit,
-    onNextDateButtonClicked: () -> Unit
-) {
-    if(tasks == null){
-        return
-    }
     Scaffold(
         topBar = {
             TaskListToolBar(
                 onLeftButtonClicked = onPreviousDateButtonClicked,
                 onRightButtonClicked = onNextDateButtonClicked,
-                title = selectedDateString
+                title = viewState.selectedDateString.getString()
             )
         },
         floatingActionButton = {
-                AddTaskButton(
-                    onClicked = onAddButtonClicked
-                )
+            AddTaskButton(
+                onClicked = onAddButtonClicked
+            )
 
         }
     ) { paddingValues ->
+        if(viewState.tasks != null){
+            TaskList(
+                tasks = viewState.tasks,
+                onRescheduleClicked = onRescheduleClicked,
+                onDoneClicked = onDoneClicked,
+                modifier = Modifier
+                    .padding(paddingValues),
+            )
+        }
 
-        TaskList(
-            tasks = tasks,
-            onRescheduleClicked = onRescheduleClicked,
-            onDoneClicked = onDoneClicked,
-            modifier = Modifier
-                .padding(paddingValues),
-        )
+        if(viewState.showLoading){
+//         CircularProgressIndicator(
+//             modifier = Modifier
+//                 .wrapContentSize()
+//                 .align(Alignment.Center)
+//         )
+            Box(modifier = Modifier.fillMaxSize()){
+//                MaterialCircularProgressIndicator(
+//                    modifier = Modifier
+//                        .wrapContentSize()
+//                        .align(Alignment.Center)
+//                )
+                Text(text = "Loading.....", modifier = Modifier.align(Alignment.Center))
+            }
+
+
+
+        }
+
 
     }
+
+//    Box(modifier = Modifier.fillMaxSize()){
+//     println("TaskListContent viewstate is $viewState")
+//
+//     if(viewState.tasks != null){
+//         LoadedTasksContent(
+//             tasks = viewState.tasks,
+//             onAddButtonClicked = onAddButtonClicked,
+//             onRescheduleClicked = onRescheduleClicked,
+//             onDoneClicked = onDoneClicked,
+//             selectedDateString = viewState.selectedDateString.getString(),
+//             onPreviousDateButtonClicked = onPreviousDateButtonClicked,
+//             onNextDateButtonClicked = onNextDateButtonClicked
+//         )
+//     }
+//
+//     if(viewState.showLoading){
+////         CircularProgressIndicator(
+////             modifier = Modifier
+////                 .wrapContentSize()
+////                 .align(Alignment.Center)
+////         )
+//
+//         Text(text = "Loading.....")
+//
+//
+//     }
+//
+//    }
+
 }
+
+//progress indicator is not at the right place
 
 @Composable
 private fun TaskListToolBar(
