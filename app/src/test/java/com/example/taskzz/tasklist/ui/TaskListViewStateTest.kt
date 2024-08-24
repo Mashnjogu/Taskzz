@@ -4,6 +4,7 @@ import com.example.taskzz.core.ui.components.UiText
 import org.junit.Test
 import java.time.LocalDate
 import com.example.taskzz.R
+import com.example.taskzz.core.utils.getSuffixForDateOfMonth
 import com.google.common.truth.Truth.assertThat
 import java.time.format.DateTimeFormatter
 
@@ -54,8 +55,10 @@ class TaskListViewStateTest{
         )
 
         val expectedDateFormat = "MMM d"
-        val expectedDateString = DateTimeFormatter.ofPattern(expectedDateFormat.format(twoDaysFromNow))
-        val expectedString = UiText.StringText(expectedDateString.toString())
+        val expectedSuffix = twoDaysFromNow.getSuffixForDateOfMonth()
+        val parseDateString = DateTimeFormatter.ofPattern(expectedDateFormat.format(twoDaysFromNow))
+        val expectedDateString = "$parseDateString$expectedSuffix"
+        val expectedString = UiText.StringText(expectedDateString)
 
         assertThat(viewState.selectedDateString).isEqualTo(expectedString)
     }
