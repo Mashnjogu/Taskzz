@@ -149,7 +149,7 @@ private fun TaskListToolBar(
             IconButton(onClick = onLeftButtonClicked) {
                 Icon(
                     Icons.Default.KeyboardArrowLeft,
-                    "Previous Day",
+                    "View Previous Date's Task",
                     modifier = Modifier.size(84.dp)
                 )
             }
@@ -164,7 +164,7 @@ private fun TaskListToolBar(
             IconButton(onClick = onRightButtonClicked) {
                 Icon(
                     Icons.Default.KeyboardArrowRight,
-                    "Next Day",
+                    stringResource(R.string.view_next_date_content_description),
                     modifier = Modifier.size(84.dp)
                 )
             }
