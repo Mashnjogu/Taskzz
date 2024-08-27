@@ -11,12 +11,14 @@ interface  TaskListRepository {
 
     fun fetchAllTasks(): Flow<TaskListResult >
 
-    fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult >
+    fun fetchTasksForDate(date: LocalDate, completed: Boolean): Flow<TaskListResult >
 
     suspend fun addTask(task: Task): Result<Unit>
 
     suspend fun deleteTask(task: Task): Result<Unit>
 
-    suspend fun markAsComplete(task: Task): Result<Unit>
+    suspend fun updateTask(task: Task): Result<Unit>
+
+
 
 }

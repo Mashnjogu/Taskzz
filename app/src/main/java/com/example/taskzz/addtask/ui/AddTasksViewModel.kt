@@ -51,7 +51,8 @@ class AddTasksViewModel @Inject constructor(
         val taskToCreate = Task(
             id = UUID.randomUUID().toString(),
             description = _viewState.value.taskInput.description,
-            scheduledDate = _viewState.value.taskInput.scheduledDate
+            scheduledDate = _viewState.value.taskInput.scheduledDate,
+            completed = false
         )
 
         viewModelScope.launch {

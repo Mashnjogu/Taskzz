@@ -3,9 +3,8 @@ package com.example.taskzz.tasklist.ui
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.fakes.FakeTaskListRepository
 import com.example.taskzz.tasklist.domain.model.Task
-import com.example.taskzz.tasklist.domain.usecase.ProdGetTasksForDateUseCase
+import com.example.taskzz.tasklist.domain.usecase.ProdGetIncompleteTasksForDateUseCase
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.test.TestCoroutineDispatcher
 import java.time.LocalDate
 
 class TaskListViewModelRobot {
@@ -16,10 +15,9 @@ class TaskListViewModelRobot {
     fun buildViewModel() = apply{
         viewModel = TaskListViewModel(
 
-            getTaskForDateUseCase = ProdGetTasksForDateUseCase(
+            getTasksForDateUseCase = ProdGetIncompleteTasksForDateUseCase(
                 taskListRepository = fakeTaskListRepository.mock
-            ),
-            defaultDispatcher = TestCoroutineDispatcher()
+            )
         )
     }
 

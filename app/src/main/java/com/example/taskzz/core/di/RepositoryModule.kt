@@ -23,4 +23,6 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindTaskListRepository(taskListRepository: RoomTaskListRepository): TaskListRepository
+
+
 }

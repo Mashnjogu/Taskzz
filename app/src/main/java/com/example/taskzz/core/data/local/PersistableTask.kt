@@ -11,5 +11,7 @@ data class PersistableTask(
     val description: String,
     val scheduledDate: String,
     @ColumnInfo(defaultValue = "Auto_migration column")
-    val autoMigrationName: String
+    val autoMigrationName: String,
+    val completed: Boolean
+
 )

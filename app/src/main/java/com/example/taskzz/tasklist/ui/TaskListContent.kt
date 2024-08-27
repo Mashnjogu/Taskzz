@@ -64,9 +64,10 @@ fun TaskListContent(
 
         }
     ) { paddingValues ->
-        if(viewState.tasks != null){
+        if(!viewState.showLoading){
             TaskList(
-                tasks = viewState.tasks,
+                incompleteTasks = viewState.incompleteTasks.orEmpty(),
+                completedTasks = viewState.completedTasks.orEmpty(),
                 onRescheduleClicked = onRescheduleClicked,
                 onDoneClicked = onDoneClicked,
                 modifier = Modifier
@@ -75,55 +76,15 @@ fun TaskListContent(
         }
 
         if(viewState.showLoading){
-//         CircularProgressIndicator(
-//             modifier = Modifier
-//                 .wrapContentSize()
-//                 .align(Alignment.Center)
-//         )
+
             Box(modifier = Modifier.fillMaxSize()){
-//                MaterialCircularProgressIndicator(
-//                    modifier = Modifier
-//                        .wrapContentSize()
-//                        .align(Alignment.Center)
-//                )
+
                 Text(text = "Loading.....", modifier = Modifier.align(Alignment.Center))
             }
 
-
-
         }
 
-
     }
-
-//    Box(modifier = Modifier.fillMaxSize()){
-//     println("TaskListContent viewstate is $viewState")
-//
-//     if(viewState.tasks != null){
-//         LoadedTasksContent(
-//             tasks = viewState.tasks,
-//             onAddButtonClicked = onAddButtonClicked,
-//             onRescheduleClicked = onRescheduleClicked,
-//             onDoneClicked = onDoneClicked,
-//             selectedDateString = viewState.selectedDateString.getString(),
-//             onPreviousDateButtonClicked = onPreviousDateButtonClicked,
-//             onNextDateButtonClicked = onNextDateButtonClicked
-//         )
-//     }
-//
-//     if(viewState.showLoading){
-////         CircularProgressIndicator(
-////             modifier = Modifier
-////                 .wrapContentSize()
-////                 .align(Alignment.Center)
-////         )
-//
-//         Text(text = "Loading.....")
-//
-//
-//     }
-//
-//    }
 
 }
 
@@ -206,7 +167,10 @@ private fun TaskListContentPreview() {
         )
     }
 
-    val viewState = TaskListViewState(tasks= tasks)
+    val viewState = TaskListViewState(
+        showLoading = false,
+        incompleteTasks = tasks,
+    )
 
     TaskzzTheme {
         TaskListContent(

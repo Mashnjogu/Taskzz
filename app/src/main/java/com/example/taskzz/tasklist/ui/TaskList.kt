@@ -5,9 +5,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.ui.theme.TaskzzTheme
@@ -16,7 +19,8 @@ import java.time.LocalDate
 
 @Composable
 fun TaskList(
-    tasks: List<Task>,
+    incompleteTasks: List<Task>,
+    completedTasks: List<Task>,
     onRescheduleClicked: (Task) -> Unit,
     onDoneClicked: (Task) -> Unit,
     modifier: Modifier = Modifier,
@@ -26,14 +30,47 @@ fun TaskList(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.list_padding)),
         modifier = modifier
     ){
-        items(tasks){task ->
+        item {
+            SectionHeader(text = stringResource(id = R.string.incomplete_tasks_header))
+        }
+
+        items(incompleteTasks){task ->
             TaskListItem(
                 task = task,
-                onRescheduleClicked = {},
-                onDoneClicked = {}
+                onRescheduleClicked = {
+                    onRescheduleClicked(task)
+                },
+                onDoneClicked = {
+                    onDoneClicked(task)
+                }
+            )
+        }
+
+        item {
+            SectionHeader(text = stringResource(id = R.string.completed_tasks_header))
+        }
+
+        items(completedTasks){task ->
+            TaskListItem(
+                task = task,
+                onRescheduleClicked = {
+                    onRescheduleClicked(task)
+                },
+                onDoneClicked = {
+                    onDoneClicked(task)
+                }
             )
         }
     }
+}
+
+@Composable
+private fun SectionHeader(
+    text: String
+){
+    Text(text = text,
+//        style = MaterialTheme.typography.headlineSmall
+    )
 }
 
 @Preview(
@@ -46,17 +83,28 @@ fun TaskList(
 )
 @Composable
 private fun TaskListPreview(){
-    val tasks = (1..10).map { index ->
+    val incompleteTasks = (1..10).map { index ->
         Task(
             id = "$index",
             description = "Test task: $index",
             scheduledDate = LocalDate.now(),
+            completed = false
+        )
+    }
+
+    val completedTasks = (1..10).map { index ->
+        Task(
+            id = "$index",
+            description = "Test task: $index",
+            scheduledDate = LocalDate.now(),
+            completed = true
         )
     }
 
     TaskzzTheme {
         TaskList(
-            tasks = tasks,
+            incompleteTasks = emptyList(),
+            completedTasks = completedTasks,
             onRescheduleClicked = {},
             onDoneClicked = {},
         )

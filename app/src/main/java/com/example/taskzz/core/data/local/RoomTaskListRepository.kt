@@ -24,8 +24,11 @@ class RoomTaskListRepository @Inject constructor(
         }
     }
 
-    override fun fetchTasksForDate(date: LocalDate): Flow<TaskListResult> {
-        return taskDAO.fetchTasksForDate(date = date.toPersistableDateString())
+    override fun fetchTasksForDate(date: LocalDate, completed: Boolean): Flow<TaskListResult> {
+        return taskDAO.fetchTasksForDate(
+            date = date.toPersistableDateString(),
+            completed = completed
+        )
             .map {taskList ->
                 Result.Success(taskList.toDomainTaskList())
             }
@@ -41,8 +44,9 @@ class RoomTaskListRepository @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun markAsComplete(task: Task): Result<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun updateTask(task: Task): Result<Unit> {
+        taskDAO.updateTask(task.toPersistableTask())
+        return Result.Success(Unit)
     }
 
 }
@@ -67,6 +71,7 @@ private fun PersistableTask.toTask(): Task {
         id = this.id,
         description = this.description,
         scheduledDate = this.scheduledDate.parsePersistableDateString(),
+        completed = this.completed
     )
 }
 
@@ -75,6 +80,7 @@ private fun Task.toPersistableTask(): PersistableTask {
         id = this.id,
         description = this.description,
         scheduledDate = this.scheduledDate.toPersistableDateString(),
-        autoMigrationName = ""
+        autoMigrationName = "",
+        completed = this.completed
     )
 }
