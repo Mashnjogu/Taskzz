@@ -69,7 +69,7 @@ private fun SectionHeader(
     text: String
 ){
     Text(text = text,
-//        style = MaterialTheme.typography.headlineSmall
+//        style = MaterialTheme.typography.headlineMedium
     )
 }
 

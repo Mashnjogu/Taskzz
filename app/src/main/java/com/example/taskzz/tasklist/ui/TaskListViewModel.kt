@@ -37,23 +37,9 @@ class TaskListViewModel @Inject constructor(
             .flatMapLatest { selectedDate ->
                 clearTasksAndShowLoading()
 
-                // two new flows are called everytime
-                val incompleteTaskFlow = getTasksForDateUseCase.invoke(
-                    date = selectedDate, completed = false
-                )
-
-                val completeTaskFlow = getTasksForDateUseCase.invoke(
-                    date = selectedDate, completed = true
-                )
-
-                incompleteTaskFlow.combine(completeTaskFlow){incompleteTaskFlow, completeTaskFlow ->
-                    (incompleteTaskFlow to completeTaskFlow)
-                }
-            }.onEach {(incompleteTaskListResult, completeTaskListResult) ->
-                _viewState.value = getViewStateForTaskListResult(
-                    incompleteTaskListResult = incompleteTaskListResult,
-                    completedTaskListResult = completeTaskListResult
-                )
+                getTasksForDateUseCase.invoke(date = selectedDate)
+            }.onEach {result ->
+                _viewState.value = getViewStateForTaskListResult(result = result)
             }
             .launchIn(viewModelScope)
     }
@@ -67,27 +53,29 @@ class TaskListViewModel @Inject constructor(
     }
 
     private fun getViewStateForTaskListResult(
-        incompleteTaskListResult: Result<List<Task>>,
-        completedTaskListResult: Result<List<Task>>,
+        result: Result<List<Task>>
     ): TaskListViewState{
-        return when{
-            incompleteTaskListResult is Result.Success &&
-                    completedTaskListResult is Result.Success -> {
-                        _viewState.value.copy(
-                            incompleteTasks = incompleteTaskListResult.data,
-                            completedTasks = completedTaskListResult.data,
-                            showLoading = false
-                        )
-                    }
-            else -> {
+        return when(result){
+            is Result.Success -> {
+
+                val (completedTasks,incompleteTasks)  = result.data.partition {task ->
+                    task.completed
+                }
                 _viewState.value.copy(
-                    errorMessage = UiText.StringText("Something went wrong"),
+                    incompleteTasks = incompleteTasks,
+                    completedTasks = completedTasks,
+                    showLoading = false
+                )
+            }
+
+            is Result.Error -> {
+                _viewState.value.copy(
+                    errorMessage = UiText.StringText("Something went wrong."),
                     showLoading = false
                 )
             }
         }
-        }
-
+    }
     fun onPreviousDateButtonClicked(){
         _viewState.value = viewState.value.copy(
             selectedDate = _viewState.value.selectedDate.minusDays(1)
