@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.ui.theme.TaskzzTheme
 import com.example.taskzz.R
-import com.google.android.material.card.MaterialCardView
 import java.time.LocalDate
 
 @Composable
@@ -62,7 +60,7 @@ fun TaskList(
 
         if(completedTasks.isEmpty()){
             item{
-                EmptySectionCard(text = stringResource(id = R.string.no_tasks_scheduled_label))
+                EmptySectionCard(text = stringResource(id = R.string.no_completed_tasks_label))
             }
         }else{
             items(completedTasks){task ->

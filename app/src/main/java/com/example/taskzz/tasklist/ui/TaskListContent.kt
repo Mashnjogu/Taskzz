@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +35,6 @@ import androidx.compose.ui.unit.dp
 
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.R
-import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
 import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.core.ui.components.getString
 import com.example.taskzz.ui.theme.TaskzzTheme
@@ -68,7 +66,7 @@ fun TaskListContent(
 
         }
     ) { paddingValues ->
-        if(!viewState.showLoading){
+        if(viewState.showTasks){
             if (viewState.incompleteTasks.isNullOrEmpty() && viewState.completedTasks.isNullOrEmpty()){
                 //Empty state here
                 TaskListEmptyState(paddingValues)
@@ -107,7 +105,7 @@ private fun TaskListEmptyState(paddingValues: PaddingValues) {
             .wrapContentSize(Alignment.Center)
     ) {
         Text(
-            text = stringResource(R.string.no_task_scheduled_label),
+            text = stringResource(R.string.no_tasks_scheduled_label),
 
             modifier = Modifier.padding(32.dp)
                 .align(Alignment.Center)

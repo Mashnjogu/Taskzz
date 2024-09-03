@@ -12,9 +12,9 @@ class FakeTaskListRepository {
 
     val mock: TaskListRepository = mockk()
 
-    fun mockTasksForDateResults(date: LocalDate, response: Result<List<Task>>){
+    fun mockTasksForDateResults(date: LocalDate, response: Result<List<Task>>, completed: Boolean){
         coEvery {
-            mock.fetchTasksForDate(date)
+            mock.fetchTasksForDate(date=date, completed = completed)
         }returns flowOf(response)
     }
 }

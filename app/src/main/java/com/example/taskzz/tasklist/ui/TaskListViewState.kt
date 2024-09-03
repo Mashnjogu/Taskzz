@@ -15,6 +15,9 @@ data class TaskListViewState(
     val selectedDate: LocalDate = LocalDate.now()
 ){
 
+    val showTasks: Boolean
+        get() = !showLoading && errorMessage == null
+
     val selectedDateString: UiText
         get(){
             val today = LocalDate.now()

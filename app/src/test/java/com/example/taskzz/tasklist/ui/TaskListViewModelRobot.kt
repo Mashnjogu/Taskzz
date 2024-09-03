@@ -3,7 +3,8 @@ package com.example.taskzz.tasklist.ui
 import com.example.taskzz.core.data.Result
 import com.example.taskzz.fakes.FakeTaskListRepository
 import com.example.taskzz.tasklist.domain.model.Task
-import com.example.taskzz.tasklist.domain.usecase.ProdGetIncompleteTasksForDateUseCase
+import com.example.taskzz.tasklist.domain.usecase.ProdGetTasksForDateUseCase
+import com.example.taskzz.tasklist.domain.usecase.ProdMarkTaskAsCompleteUseCase
 import com.google.common.truth.Truth.assertThat
 import java.time.LocalDate
 
@@ -15,14 +16,17 @@ class TaskListViewModelRobot {
     fun buildViewModel() = apply{
         viewModel = TaskListViewModel(
 
-            getTasksForDateUseCase = ProdGetIncompleteTasksForDateUseCase(
+            getTasksForDateUseCase = ProdGetTasksForDateUseCase(
+                taskListRepository = fakeTaskListRepository.mock
+            ),
+            markTaskAsCompleteUseCase = ProdMarkTaskAsCompleteUseCase(
                 taskListRepository = fakeTaskListRepository.mock
             )
         )
     }
 
-    fun mockTestForDateResult(date: LocalDate, result: Result<List<Task>>) = apply{
-        fakeTaskListRepository.mockTasksForDateResults(date, result)
+    fun mockTestForDateResult(date: LocalDate, result: Result<List<Task>>, completed: Boolean) = apply{
+        fakeTaskListRepository.mockTasksForDateResults(date, result, completed)
     }
 
     fun assertViewState(expectedViewState: TaskListViewState) = apply{

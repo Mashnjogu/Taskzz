@@ -62,4 +62,6 @@ class TaskListViewStateTest{
 
         assertThat(viewState.selectedDateString).isEqualTo(expectedString)
     }
+
+
 }
