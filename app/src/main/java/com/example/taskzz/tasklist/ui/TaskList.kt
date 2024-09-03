@@ -1,6 +1,7 @@
 package com.example.taskzz.tasklist.ui
 
 import android.content.res.Configuration
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -10,6 +11,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,6 +21,7 @@ import com.example.taskzz.ui.theme.TaskzzTheme
 import com.example.taskzz.R
 import java.time.LocalDate
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TaskList(
     incompleteTasks: List<Task>,
@@ -40,7 +43,12 @@ fun TaskList(
                 EmptySectionCard(text = stringResource(R.string.no_incomplete_task_label))
             }
         }else{
-            items(incompleteTasks){task ->
+            items(
+                incompleteTasks,
+                key = {it ->
+                    it.id
+                }
+            ){task ->
                 TaskListItem(
                     task = task,
                     onRescheduleClicked = {
@@ -48,7 +56,9 @@ fun TaskList(
                     },
                     onDoneClicked = {
                         onDoneClicked(task)
-                    }
+                    },
+                    modifier = Modifier.testTag("INCOMPLETE_TASK: ${task.id}")
+                        .animateItemPlacement()
                 )
             }
         }
@@ -63,7 +73,12 @@ fun TaskList(
                 EmptySectionCard(text = stringResource(id = R.string.no_completed_tasks_label))
             }
         }else{
-            items(completedTasks){task ->
+            items(
+                completedTasks,
+                key = {it ->
+                    it.id
+                }
+            ){task ->
                 TaskListItem(
                     task = task,
                     onRescheduleClicked = {
@@ -71,7 +86,9 @@ fun TaskList(
                     },
                     onDoneClicked = {
                         onDoneClicked(task)
-                    }
+                    },
+                    modifier = Modifier.testTag("COMPLETE_TASK: ${task.id}")
+                        .animateItemPlacement()
                 )
             }
         }
@@ -83,8 +100,10 @@ fun TaskList(
 }
 
 @Composable
-private fun EmptySectionCard(text: String){
-    Card {
+private fun EmptySectionCard(text: String, modifier: Modifier = Modifier){
+    Card(
+        modifier = modifier
+    ){
         Text(
             text = text,
             modifier = Modifier.padding(

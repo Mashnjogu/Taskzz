@@ -68,6 +68,8 @@ class TaskListContentTest{
         }
 
         val noIncompleteTasksLabel = composeTestRule.activity.getString(R.string.no_incomplete_task_label)
+
+        val expectedTaskTag = "COMPLETE_TASK: ${testTask.id}"
         //assert no incomplete task
         composeTestRule.onNodeWithText(
             text = noIncompleteTasksLabel
