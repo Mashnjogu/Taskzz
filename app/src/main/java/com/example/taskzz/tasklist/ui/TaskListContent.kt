@@ -3,6 +3,7 @@ package com.example.taskzz.tasklist.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -29,11 +30,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 
 import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.R
 import com.example.taskzz.core.ui.components.MaterialCircularProgressIndicator
+import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.core.ui.components.getString
 import com.example.taskzz.ui.theme.TaskzzTheme
 import java.time.LocalDate
@@ -65,14 +69,20 @@ fun TaskListContent(
         }
     ) { paddingValues ->
         if(!viewState.showLoading){
-            TaskList(
-                incompleteTasks = viewState.incompleteTasks.orEmpty(),
-                completedTasks = viewState.completedTasks.orEmpty(),
-                onRescheduleClicked = onRescheduleClicked,
-                onDoneClicked = onDoneClicked,
-                modifier = Modifier
-                    .padding(paddingValues),
-            )
+            if (viewState.incompleteTasks.isNullOrEmpty() && viewState.completedTasks.isNullOrEmpty()){
+                //Empty state here
+                TaskListEmptyState(paddingValues)
+            }else{
+                TaskList(
+                    incompleteTasks = viewState.incompleteTasks.orEmpty(),
+                    completedTasks = viewState.completedTasks.orEmpty(),
+                    onRescheduleClicked = onRescheduleClicked,
+                    onDoneClicked = onDoneClicked,
+                    modifier = Modifier
+                        .padding(paddingValues),
+                )
+            }
+
         }
 
         if(viewState.showLoading){
@@ -86,6 +96,23 @@ fun TaskListContent(
 
     }
 
+}
+
+@Composable
+private fun TaskListEmptyState(paddingValues: PaddingValues) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+            .wrapContentSize(Alignment.Center)
+    ) {
+        Text(
+            text = stringResource(R.string.no_task_scheduled_label),
+
+            modifier = Modifier.padding(32.dp)
+                .align(Alignment.Center)
+        )
+    }
 }
 
 //progress indicator is not at the right place
@@ -148,6 +175,58 @@ private fun AddTaskButton(
     }
 }
 
+class TaskListViewStateProvider: PreviewParameterProvider<TaskListViewState>{
+    override val values: Sequence<TaskListViewState>
+        get(){
+            val incompleteTasks = (1..10).map { index ->
+                Task(
+                    id = "$index",
+                    description = "Test task: $index",
+                    scheduledDate = LocalDate.now(),
+                    completed = false
+                )
+            }
+
+            val completeTasks = (1..10).map { index ->
+                Task(
+                    id = "$index",
+                    description = "Test task: $index",
+                    scheduledDate = LocalDate.now(),
+                    completed = true
+                )
+            }
+
+            val loadingState = TaskListViewState(
+               showLoading = true
+            )
+
+            val taskListState = TaskListViewState(
+                showLoading = false,
+                incompleteTasks = incompleteTasks,
+                completedTasks = completeTasks
+            )
+
+            val emptyState = TaskListViewState(
+                showLoading = false,
+                incompleteTasks = emptyList(),
+                completedTasks = emptyList()
+            )
+
+            val errorState = TaskListViewState(
+                showLoading = false,
+                errorMessage = UiText.StringText("Something went wrong!")
+            )
+
+            return sequenceOf(
+                loadingState,
+                taskListState,
+                emptyState,
+                errorState
+            )
+
+        }
+}
+
 @Preview(
     name = "Night Mode",
     uiMode = Configuration.UI_MODE_NIGHT_YES
@@ -157,20 +236,10 @@ private fun AddTaskButton(
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Composable
-private fun TaskListContentPreview() {
+private fun TaskListContentPreview(
+    @PreviewParameter(TaskListViewStateProvider::class) viewState: TaskListViewState
+) {
 
-    val tasks = (1..10).map { index ->
-        Task(
-            id = "$index",
-            description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
-        )
-    }
-
-    val viewState = TaskListViewState(
-        showLoading = false,
-        incompleteTasks = tasks,
-    )
 
     TaskzzTheme {
         TaskListContent(
