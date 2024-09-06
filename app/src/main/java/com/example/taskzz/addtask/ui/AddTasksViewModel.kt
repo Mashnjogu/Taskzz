@@ -6,13 +6,14 @@ import com.example.taskzz.R
 import com.example.taskzz.addtask.domain.model.AddTaskResult
 import com.example.taskzz.addtask.domain.model.TaskInput
 import com.example.taskzz.addtask.domain.usecase.AddTasksUseCase
+import com.example.taskzz.core.models.Task
 import com.example.taskzz.core.ui.components.UiText
-import com.example.taskzz.tasklist.domain.model.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.ZoneId
 import java.util.UUID
 import javax.inject.Inject
 @HiltViewModel
@@ -51,7 +52,11 @@ class AddTasksViewModel @Inject constructor(
         val taskToCreate = Task(
             id = UUID.randomUUID().toString(),
             description = _viewState.value.taskInput.description,
-            scheduledDate = _viewState.value.taskInput.scheduledDate,
+            scheduledDateMillis = _viewState.value.taskInput.scheduledDate
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli(),
             completed = false
         )
 

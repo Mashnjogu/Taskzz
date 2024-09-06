@@ -1,6 +1,7 @@
 package com.example.taskzz.deletetask
 
-import com.example.taskzz.tasklist.domain.model.Task
+import com.example.taskzz.core.models.Task
+
 
 interface DeleteTaskUseCase {
 

@@ -1,9 +1,10 @@
 package com.example.taskzz.tasklist.domain.repository
 
-import com.example.taskzz.tasklist.domain.model.Task
+
 import com.example.taskzz.core.data.Result
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
+import com.example.taskzz.core.models.Task
 
 typealias TaskListResult = Result<List<Task>>
 

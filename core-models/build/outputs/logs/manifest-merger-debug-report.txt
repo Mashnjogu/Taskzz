@@ -1,0 +1,15 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml:2:1-54
+INJECTED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml:2:1-54
+	package
+		ADDED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml:2:11-51
+		INJECTED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml
+uses-sdk
+INJECTED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml
+INJECTED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Studio Projects\Taskzz\core-models\src\androidMain\AndroidManifest.xml

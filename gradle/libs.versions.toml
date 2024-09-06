@@ -10,8 +10,13 @@ activityCompose = "1.8.1"
 composeBom = "2023.08.00"
 appcompat = "1.6.1"
 material = "1.11.0"
+compileSdk = "34"
+minSdk = "28"
+targetSdk = "34"
 #uiTestJunit4Android = "1.6.8"
 uiTestJunit4Android = "1.7.0-alpha01"
+
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,4 +40,5 @@ androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-te
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

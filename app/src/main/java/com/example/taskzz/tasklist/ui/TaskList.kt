@@ -16,9 +16,9 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.ui.theme.TaskzzTheme
 import com.example.taskzz.R
+import com.example.taskzz.core.models.Task
 import java.time.LocalDate
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -137,7 +137,7 @@ private fun TaskListPreview(){
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false
         )
     }
@@ -146,7 +146,7 @@ private fun TaskListPreview(){
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = true
         )
     }
@@ -177,7 +177,7 @@ private fun NoIncompleteTasksListPreview() {
             id = "$index",
             description = "Test task: $index",
             completed = true,
-            scheduledDate = LocalDate.now()
+            scheduledDateMillis = 0L
         )
     }
 
@@ -205,7 +205,7 @@ private fun NoCompletedTasksListPreview() {
         Task(
             id = "$index",
             description = "Test task: $index",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
     }

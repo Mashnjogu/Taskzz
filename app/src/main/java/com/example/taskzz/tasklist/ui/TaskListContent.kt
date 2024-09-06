@@ -32,9 +32,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-
-import com.example.taskzz.tasklist.domain.model.Task
 import com.example.taskzz.R
+import com.example.taskzz.core.models.Task
 import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.core.ui.components.getString
 import com.example.taskzz.ui.theme.TaskzzTheme
@@ -180,7 +179,7 @@ class TaskListViewStateProvider: PreviewParameterProvider<TaskListViewState>{
                 Task(
                     id = "$index",
                     description = "Test task: $index",
-                    scheduledDate = LocalDate.now(),
+                    scheduledDateMillis = 0L,
                     completed = false
                 )
             }
@@ -189,7 +188,7 @@ class TaskListViewStateProvider: PreviewParameterProvider<TaskListViewState>{
                 Task(
                     id = "$index",
                     description = "Test task: $index",
-                    scheduledDate = LocalDate.now(),
+                    scheduledDateMillis = 0L,
                     completed = true
                 )
             }

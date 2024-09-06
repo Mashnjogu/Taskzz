@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Taskzz"
 include(":app")
- 
+include(":core-models")

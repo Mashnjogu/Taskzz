@@ -1,9 +1,9 @@
 package com.example.taskzz.tasklist.ui
 
 import com.example.taskzz.core.ui.components.UiText
-import com.example.taskzz.tasklist.domain.model.Task
 import java.time.LocalDate
 import com.example.taskzz.R
+import com.example.taskzz.core.models.Task
 import com.example.taskzz.core.utils.getSuffixForDateOfMonth
 import java.time.format.DateTimeFormatter
 
