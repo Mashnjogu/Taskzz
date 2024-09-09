@@ -1,10 +1,10 @@
 package com.example.taskzz.tasklist.ui
 
 import com.example.taskzz.CoroutineTestRule
-import com.example.taskzz.tasklist.domain.model.Task
 import org.junit.Rule
 import org.junit.Test
 import com.example.taskzz.core.data.Result
+import com.example.taskzz.core.models.Task
 import com.example.taskzz.core.ui.components.UiText
 import java.time.LocalDate
 
@@ -20,7 +20,7 @@ class TaskListViewModelTest {
         val incompleteTask = Task(
             id = "Test",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
 
@@ -80,7 +80,7 @@ class TaskListViewModelTest {
         val incompleteTask = Task(
             id = "Test",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
 
@@ -119,7 +119,7 @@ class TaskListViewModelTest {
         val incompleteTask = Task(
             id = "Test",
             description = "Test task",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = 0L,
             completed = false,
         )
 

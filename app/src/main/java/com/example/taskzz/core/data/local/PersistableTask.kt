@@ -13,5 +13,4 @@ data class PersistableTask(
     @ColumnInfo(defaultValue = "Auto_migration column")
     val autoMigrationName: String,
     val completed: Boolean
-
 )

@@ -2,13 +2,16 @@ package com.example.taskzz.addTask.domain.usecase
 
 import com.example.taskzz.addtask.domain.model.AddTaskResult
 import com.example.taskzz.addtask.domain.usecase.ProdAddTaskUseCase
+import com.example.taskzz.core.models.Task
 import com.example.taskzz.fakes.FakeTaskListRepository
-import com.example.taskzz.tasklist.domain.model.Task
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class ProdAddTaskUseCaseTest {
 
@@ -23,7 +26,8 @@ class ProdAddTaskUseCaseTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "",
-            scheduledDate = LocalDate.now(),
+            scheduledDateMillis = ZonedDateTime.now().toInstant().toEpochMilli(),
+            completed = false,
         )
 
         val expectedResult = AddTaskResult.Failure.InvalidInput(
@@ -40,7 +44,12 @@ class ProdAddTaskUseCaseTest {
         val taskToSubmit = Task(
             id = "Testing",
             description = "Some description",
-            scheduledDate = LocalDate.now().minusDays(1),
+            scheduledDateMillis = LocalDate.now().minusDays(1)
+                .atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli(),
+            completed = false
         )
 
         val expectedResult = AddTaskResult.Failure.InvalidInput(

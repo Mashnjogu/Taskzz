@@ -2,7 +2,7 @@ package com.example.taskzz.fakes
 
 import com.example.taskzz.addtask.domain.model.AddTaskResult
 import com.example.taskzz.addtask.domain.usecase.AddTasksUseCase
-import com.example.taskzz.tasklist.domain.model.Task
+import com.example.taskzz.core.models.Task
 import io.mockk.coEvery
 import io.mockk.mockk
 

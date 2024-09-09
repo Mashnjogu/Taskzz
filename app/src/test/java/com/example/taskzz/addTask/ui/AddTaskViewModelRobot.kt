@@ -3,11 +3,14 @@ package com.example.taskzz.addTask.ui
 import com.example.taskzz.addtask.domain.model.AddTaskResult
 import com.example.taskzz.addtask.ui.AddTaskViewState
 import com.example.taskzz.addtask.ui.AddTasksViewModel
+import com.example.taskzz.core.models.Task
 import com.example.taskzz.fakes.FakeAddTaskUseCase
 import com.example.taskzz.login.ui.LoginViewState
-import com.example.taskzz.tasklist.domain.model.Task
+
 import com.google.common.truth.Truth.assertThat
+import java.time.Instant
 import java.time.LocalDate
+import java.time.ZoneId
 
 class AddTaskViewModelRobot {
 
@@ -31,8 +34,11 @@ class AddTaskViewModelRobot {
         viewModel.onTaskDescriptionChanged(newDescription)
     }
 
-    fun selectDate(newTaskDate: LocalDate) = apply{
-        viewModel.onTaskScheduledDateChanged(newTaskDate)
+    fun selectDate(newScheduledDate: Long) = apply{
+        val scheduledDate = Instant.ofEpochMilli(newScheduledDate)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+        viewModel.onTaskScheduledDateChanged(scheduledDate)
     }
 
     fun clickSubmit() = apply{

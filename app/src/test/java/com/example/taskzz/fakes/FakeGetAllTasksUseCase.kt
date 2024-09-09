@@ -1,7 +1,7 @@
 package com.example.taskzz.fakes
 
 import com.example.taskzz.core.data.Result
-import com.example.taskzz.tasklist.domain.model.Task
+import com.example.taskzz.core.models.Task
 import com.example.taskzz.tasklist.domain.usecase.GetAllTasksUseCase
 import io.mockk.coEvery
 import io.mockk.every

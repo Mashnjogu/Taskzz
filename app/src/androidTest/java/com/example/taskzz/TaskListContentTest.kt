@@ -4,12 +4,13 @@ import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import com.example.taskzz.tasklist.domain.model.Task
+import com.example.taskzz.core.models.Task
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
 import com.example.taskzz.tasklist.ui.TaskListContent
 import com.example.taskzz.tasklist.ui.TaskListViewState
+import java.time.ZonedDateTime
 
 class TaskListContentTest{
     @get: Rule
@@ -18,7 +19,7 @@ class TaskListContentTest{
     private val testTask = Task(
         id = "Test ID",
         description = "Test task",
-        scheduledDate = LocalDate.now(),
+        scheduledDateMillis = ZonedDateTime.now().toInstant().toEpochMilli(),
         completed = false
     )
 
