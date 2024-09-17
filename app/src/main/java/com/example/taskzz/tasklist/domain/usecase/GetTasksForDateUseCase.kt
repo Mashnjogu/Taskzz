@@ -1,6 +1,6 @@
 package com.example.taskzz.tasklist.domain.usecase
 
-import com.example.taskzz.tasklist.domain.repository.TaskListResult
+import com.example.taskzz.task_api.TaskListResult
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 

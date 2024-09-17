@@ -1,16 +1,15 @@
 package com.example.taskzz.core.data.local
 
-import com.example.taskzz.core.data.Result
+import com.example.taskzz.core_data.Result
 import com.example.taskzz.core.models.Task
-import com.example.taskzz.tasklist.domain.repository.TaskListRepository
-import com.example.taskzz.tasklist.domain.repository.TaskListResult
+import com.example.taskzz.task_api.TaskListRepository
+import com.example.taskzz.task_api.TaskListResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.UUID
 import javax.inject.Inject
 
 /*
@@ -19,16 +18,17 @@ databases
  */
 class RoomTaskListRepository @Inject constructor(
     private val taskDAO: TaskDAO
-): TaskListRepository{
+): TaskListRepository {
     override fun fetchAllTasks(): Flow<Result<List<Task>>> {
         return taskDAO.fetchAllTasks().map {taskList ->
             Result.Success(taskList.toDomainTaskList())
         }
     }
 
-    override fun fetchTasksForDate(date: LocalDate, completed: Boolean): Flow<TaskListResult> {
+    override fun fetchTasksForDate(dateMillis: Long, completed: Boolean): Flow<TaskListResult> {
+        val localDate = Instant.ofEpochMilli(dateMillis).atZone(ZoneId.systemDefault()).toLocalDate()
         return taskDAO.fetchTasksForDate(
-            date = date.toPersistableDateString(),
+            date = localDate.toPersistableDateString(),
             completed = completed
         )
             .map {taskList ->

@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "Taskzz"
 include(":app")
 include(":core-models")
+include(":core-data")
+include(":task-api")

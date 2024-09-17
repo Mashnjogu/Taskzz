@@ -1,6 +1,6 @@
 package com.example.taskzz.login.domain.usecase
 
-import com.example.taskzz.core.data.Result
+import com.example.taskzz.core_data.Result
 import com.example.taskzz.login.domain.model.Credentials
 import com.example.taskzz.login.domain.model.InvalidCredentialsException
 import com.example.taskzz.login.domain.model.LoginResult

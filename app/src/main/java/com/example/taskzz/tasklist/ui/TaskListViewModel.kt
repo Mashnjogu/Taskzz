@@ -2,7 +2,7 @@ package com.example.taskzz.tasklist.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taskzz.core.data.Result
+import com.example.taskzz.core_data.Result
 import com.example.taskzz.core.models.Task
 import com.example.taskzz.core.ui.components.UiText
 import com.example.taskzz.tasklist.domain.usecase.GetTasksForDateUseCase
@@ -10,7 +10,6 @@ import com.example.taskzz.tasklist.domain.usecase.MarkTaskAsCompleteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn

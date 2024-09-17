@@ -1,6 +1,6 @@
 package com.example.taskzz.tasklist.domain.usecase
 
-import com.example.taskzz.core.data.Result
+import com.example.taskzz.core_data.Result
 
 interface RescheduleTaskUseCase {
 

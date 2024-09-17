@@ -1,6 +1,6 @@
 package com.example.taskzz.tasklist.ui
 
-import com.example.taskzz.core.data.Result
+import com.example.taskzz.core_data.Result
 import com.example.taskzz.core.models.Task
 import com.example.taskzz.fakes.FakeTaskListRepository
 import com.example.taskzz.tasklist.domain.usecase.ProdGetTasksForDateUseCase

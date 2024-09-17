@@ -1,4 +1,4 @@
-package com.example.taskzz.core.data
+package com.example.taskzz.core_data
 
 sealed class Result<out T>{
     data class Success<out T>(val data: T): Result<T>()

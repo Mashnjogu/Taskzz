@@ -1,6 +1,6 @@
 package com.example.taskzz.login.domain.usecase
 
-import com.example.taskzz.core.data.Result
+import com.example.taskzz.core_data.Result
 import com.example.taskzz.fakes.FakeLoginRepository
 import com.example.taskzz.fakes.FakeTokenRepository
 import com.example.taskzz.login.domain.model.AuthToken

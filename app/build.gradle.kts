@@ -108,6 +108,8 @@ dependencies {
     val room_version = "2.6.1"
 
     implementation(project(":core-models"))
+    implementation(project(":core-data"))
+    implementation(project(":task-api"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

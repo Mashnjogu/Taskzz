@@ -1,11 +1,11 @@
 package com.example.taskzz.core.di
 
 import com.example.taskzz.core.data.local.RoomTaskListRepository
-import com.example.taskzz.tasklist.domain.repository.TaskListRepository
 import com.example.taskzz.login.domain.repository.DemoLoginRepository
 import com.example.taskzz.login.domain.repository.DemoTokenRepository
 import com.example.taskzz.login.domain.repository.LoginRepository
 import com.example.taskzz.login.domain.repository.TokenRepository
+import com.example.taskzz.task_api.TaskListRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
