@@ -126,6 +126,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     testImplementation ("io.mockk:mockk:1.12.0")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
+    testImplementation(project(":task-api-test"))
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:1.8.0-RC2")
 
     implementation ("com.google.accompanist:accompanist-systemuicontroller:0.35.0-alpha")

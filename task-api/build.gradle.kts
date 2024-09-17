@@ -17,9 +17,9 @@ kotlin {
     sourceSets {
         val commonMain by getting{
             dependencies {
-               implementation(project(":core-models"))
-                implementation(project(":core-data"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+               api(project(":core-models"))
+                api(project(":core-data"))
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
             }
         }
         val commonTest by getting {

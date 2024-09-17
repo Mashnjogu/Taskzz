@@ -3,7 +3,7 @@ package com.example.taskzz.addTask.domain.usecase
 import com.example.taskzz.addtask.domain.model.AddTaskResult
 import com.example.taskzz.addtask.domain.usecase.ProdAddTaskUseCase
 import com.example.taskzz.core.models.Task
-import com.example.taskzz.fakes.FakeTaskListRepository
+import com.example.taskzz.task_api_test.FakeTaskRepository
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
@@ -15,10 +15,10 @@ import java.time.ZonedDateTime
 
 class ProdAddTaskUseCaseTest {
 
-    private val fakeTaskListRepository = FakeTaskListRepository()
+    private val fakeTaskListRepository = FakeTaskRepository()
 
     private val useCase = ProdAddTaskUseCase(
-        taskListRepository = fakeTaskListRepository.mock
+        taskListRepository = fakeTaskListRepository
     )
 
     @Test
